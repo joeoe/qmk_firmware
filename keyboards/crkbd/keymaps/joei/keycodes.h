@@ -18,7 +18,7 @@ enum layers {
 enum custom_keycodes {
     GRV = QK_USER,
     TILD,
-    //todo quotes and other dead keys
+    // todo quotes and other dead keys
 
     ARROW,
     DBL_DASH,
@@ -37,8 +37,8 @@ enum custom_keycodes {
     NUMWORD,
 
     // Layer management
-    CANCEL,  // Cancel SYMWORD and NUMWORD
-    CLEAR,   // Clear all WORD, one-shots and reset to BASE
+    CANCEL, // Cancel SYMWORD and NUMWORD
+    CLEAR,  // Clear all WORD, one-shots and reset to BASE
 
     TO_NUM,
     TG_GEM,
@@ -54,22 +54,12 @@ enum custom_keycodes {
     OS_GUI,
     OS_CTRL_SHFT,
 
-    // Repeat keys
-    REPEAT,
-    REV_REP,
-
     // Swapper
     ALT_TAB,
     CTRL_TAB,
 
     // common bigram
     QU
-};
-
-enum unicode_names {
-    SNEK,
-    EN_DASH,
-    EM_DASH
 };
 
 #define xxxxxxx KC_NO
@@ -108,6 +98,11 @@ enum unicode_names {
 #define EXT OSL(_EXT)
 #define NAV OSL(_NAV)
 
+#define KC_UE RALT(KC_Y)
+#define KC_OE RALT(KC_P)
+#define KC_AE RALT(KC_Q)
+#define KC_SS RALT(KC_S)
+
 //  #define OS_SHFT OSM(MOD_LSFT)
 //     #define OS_CTRL OSM(MOD_LCTL)
 //     #define OS_RALT OSM(MOD_RALT)
@@ -117,22 +112,39 @@ enum unicode_names {
 
 // Colors
 // by role
-#define CL_BG {141, 153, 174}
-#define CL_MOD {237, 242, 244}
-#define CL_ACC {239, 35, 60}
-#define CL_SEC {132, 144, 165}
-#define CL_XXXXX {0,0,0}
-#define CL_WARN {230, 57, 70}
+#define CL_BG \
+    { 141, 153, 174 }
+#define CL_MOD \
+    { 237, 242, 244 }
+#define CL_ACC \
+    { 239, 35, 60 }
+#define CL_SEC \
+    { 132, 144, 165 }
+#define CL_XXXXX \
+    { 0, 0, 0 }
+#define CL_WARN \
+    { 230, 57, 70 }
 // layer colors
-#define CL_NAV {169, 222, 249}
-#define CL_EXT {17, 138, 178}
-#define CL_SYM {6, 214, 160}
-#define CL_FUN {255, 209, 102}
-#define CL_NUM {239, 71, 111}
-#define CL_MED {255, 209, 102}
+#define CL_NAV \
+    { 169, 222, 249 }
+#define CL_EXT \
+    { 17, 138, 178 }
+#define CL_SYM \
+    { 6, 214, 160 }
+#define CL_FUN \
+    { 255, 209, 102 }
+#define CL_NUM \
+    { 239, 71, 111 }
+#define CL_MED \
+    { 255, 209, 102 }
 
-#define CL_GAM {254, 228, 64}
-#define CL_GAM_HL {155, 93,  229}
-#define CL_GAM_ALT {155, 93,  229}
-#define CL_GAM_ALT_HL {254, 228, 64}
-#define CL_GAM_MOD {0,   187, 249}
+#define CL_GAM \
+    { 254, 228, 64 }
+#define CL_GAM_HL \
+    { 155, 93, 229 }
+#define CL_GAM_ALT \
+    { 155, 93, 229 }
+#define CL_GAM_ALT_HL \
+    { 254, 228, 64 }
+#define CL_GAM_MOD \
+    { 0, 187, 249 }
