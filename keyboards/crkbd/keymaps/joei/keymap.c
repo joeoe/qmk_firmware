@@ -2,7 +2,7 @@
 
 #include "keycodes.h"
 #include "oneshot.h"
-#include "casemodes.h"
+// #include "casemodes.h"
 #include "layermodes.h"
 #include "tap_hold.h"
 #include "swapper.h"
@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SYM] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_PIPE, _______, _______,
+      _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_PIPE, CW_TOGG, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_LBRC, KC_LCBR, KC_LPRN, KC_MINS,     GRV,                      KC_PLUS, OS_CTRL, OS_SHFT,  OS_ALT,  OS_GUI, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+---------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, _______, ALT_TAB, C(KC_W), CTRL_TAB, _______,                      KC_NUM, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, _______,
   //|--------+--------+--------+--------+---------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                           _______, _______, _______,    _______,   CLEAR, _______
+                                           _______, _______, _______,    _______,   _______, _______
                                        //`--------------------------'  `--------------------------'
   ),
 
@@ -173,35 +173,6 @@ void double_parens_left(uint16_t left, uint16_t right) {
 }
 
 
-bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
-    switch (keycode) {
-        // case REPEAT:
-        // case REV_REP:
-        //     return false;
-        // Keycodes to ignore (don't disable caps word)
-        case KC_A ... KC_Z:
-        case KC_1 ... KC_0:
-        case QU:
-        // case EM_DASH:
-        case KC_MINS:
-        case KC_UNDS:
-        case KC_BSPC:
-        // case REPEAT:
-        // case REV_REP:
-        //     // If mod chording disable the mods
-        //     if (record->event.pressed && (get_mods() != 0)) {
-        //         return true;
-        //     }
-        //     break;
-        default:
-            if (record->event.pressed) {
-                return true;
-            }
-            break;
-    }
-    return false;
-}
-
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
         case CLEAR:
@@ -240,7 +211,7 @@ void process_oneshot_pre(uint16_t keycode, keyrecord_t *record) {
     update_oneshot_pre(&os_shft_state, KC_LSFT, OS_SHFT, keycode, record);
     update_oneshot_pre(&os_ctrl_state, KC_LCTL, OS_CTRL, keycode, record);
     update_oneshot_pre(&os_alt_state, KC_LALT, OS_ALT, keycode, record);
-    update_oneshot_pre(&os_alt_state, KC_RALT, OS_RALT, keycode, record);
+    // update_oneshot_pre(&os_alt_state, KC_RALT, OS_RALT, keycode, record);
     update_oneshot_pre(&os_gui_state, KC_LGUI, OS_GUI, keycode, record);
 }
 
@@ -248,7 +219,7 @@ void process_oneshot_post(uint16_t keycode, keyrecord_t *record) {
     update_oneshot_post(&os_shft_state, KC_LSFT, OS_SHFT, keycode, record);
     update_oneshot_post(&os_ctrl_state, KC_LCTL, OS_CTRL, keycode, record);
     update_oneshot_post(&os_alt_state, KC_LALT, OS_ALT, keycode, record);
-    update_oneshot_post(&os_alt_state, KC_RALT, OS_RALT, keycode, record);
+    // update_oneshot_post(&os_alt_state, KC_RALT, OS_RALT, keycode, record);
     update_oneshot_post(&os_gui_state, KC_LGUI, OS_GUI, keycode, record);
 }
 
@@ -305,7 +276,7 @@ void tap_hold_send_tap(uint16_t keycode) {
 }
 
 void tap_hold_send_hold(uint16_t keycode) {
-    disable_caps_word();
+    // caps_word_off();
 
     switch (keycode) {
         case KC_LABK:
@@ -446,6 +417,8 @@ bool sw_ctrl_active = false;
 bool is_swapper_ignored_key(uint16_t keycode) {
     switch (keycode) {
         case CLEAR:
+        case KC_LSFT:
+        case KC_RSFT:
         case OS_SHFT:
             return true;
         default:
@@ -453,9 +426,31 @@ bool is_swapper_ignored_key(uint16_t keycode) {
     }
 }
 
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+        case KC_MINS:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_UNDS:
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
+}
 
 bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
     #ifdef CONSOLE_ENABLE
+        if (is_caps_word_on()) {
+            uprintf("Caps Word: %u\n", keycode);
+        }
         if (record->event.pressed) {
             uprintf("0x%04X,%u,%u,%u,%b,0x%02X,0x%02X,%u\n",
                  keycode,
@@ -473,9 +468,6 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
     update_swapper(&sw_win_active, KC_LALT, KC_TAB, ALT_TAB, keycode, record);
     update_swapper(&sw_ctrl_active, KC_LCTL, KC_TAB, CTRL_TAB, keycode, record);
 
-    if (!process_case_modes(keycode, record)) {
-        return false;
-    }
     if (!process_num_word(keycode, record)) {
         return false;
     }
@@ -484,11 +476,6 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-        case CAPSWORD:
-            if (record->event.pressed) {
-                toggle_caps_word();
-            }
-            return false;
         case CLEAR:
             clear_oneshot_mods();
             if (get_oneshot_layer() != 0) {
