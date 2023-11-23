@@ -1,0 +1,54 @@
+// top left
+COMB(c_q,       KC_Q,       KC_MINS, KC_W)
+COMB(c_qu,      QU,         KC_W, KC_F)
+COMB(c_del,     KC_DEL,     KC_F, KC_P)
+
+// top right
+COMB(c_equl,    KC_EQL,     KC_L, KC_U)
+COMB(c_bspc,    KC_BSPC,    KC_U, KC_Y)
+
+// home left
+COMB(c_ctrl_l,  OS_CTRL,    KC_R, KC_S)
+COMB(c_esc,     KC_ESC,     KC_S, KC_T)
+COMB(c_dquo,    KC_DQUO,    KC_R, KC_T)
+COMB(c_tab,     KC_TAB,     KC_R, KC_S, KC_T)
+
+// home right
+COMB(c_olon,    KC_COLN,    KC_N, KC_E)
+COMB(c_enter,   KC_ENTER,   KC_E, KC_I)
+COMB(c_quot,    KC_QUOT,    KC_N, KC_I)
+COMB(c_ctrl_r,  OS_CTRL,    KC_N, KC_E, KC_I)
+COMB(c_save,    SAVE_VIM,   KC_N, KC_E, KC_I, KC_O)
+
+// bot left
+COMB(c_z,       KC_Z,       KC_X, KC_C)
+COMB(c_gui_l,   OS_GUI,     KC_C, KC_D)
+
+// bot right
+COMB(c_gui_r,   OS_GUI,     KC_H, KC_COMM)
+
+// mixed
+COMB(num,       NUMWORD,    MT_SPC, OS_SHFT)
+COMB(capsword,  CAPSWORD,   KC_R, KC_I)
+
+COMB(c_6,       KC_6,       MT_SPC, KC_A)
+COMB(c_4,       KC_4,       MT_SPC, KC_R)
+COMB(c_0,       KC_0,       MT_SPC, KC_S)
+COMB(c_2,       KC_2,       MT_SPC, KC_T)
+COMB(c_8,       KC_8,       MT_SPC, KC_D)
+COMB(c_9,       KC_9,       MT_SPC, KC_H)
+COMB(c_3,       KC_3,       MT_SPC, KC_N)
+COMB(c_1,       KC_1,       MT_SPC, KC_E)
+COMB(c_5,       KC_5,       MT_SPC, KC_I)
+COMB(c_7,       KC_7,       MT_SPC, KC_O)
+
+COMB(c_6_2,     KC_6,       OS_SHFT, KC_A)
+COMB(c_4_2,     KC_4,       OS_SHFT, KC_R)
+COMB(c_0_2,     KC_0,       OS_SHFT, KC_S)
+COMB(c_2_2,     KC_2,       OS_SHFT, KC_T)
+COMB(c_8_2,     KC_8,       OS_SHFT, KC_D)
+COMB(c_9_2,     KC_9,       OS_SHFT, KC_H)
+COMB(c_3_2,     KC_3,       OS_SHFT, KC_N)
+COMB(c_1_2,     KC_1,       OS_SHFT, KC_E)
+COMB(c_5_2,     KC_5,       OS_SHFT, KC_I)
+COMB(c_7_2,     KC_7,       OS_SHFT, KC_O)
