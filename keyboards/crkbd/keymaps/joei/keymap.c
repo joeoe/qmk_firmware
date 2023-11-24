@@ -2,7 +2,7 @@
 
 #include "keycodes.h"
 #include "oneshot.h"
-#include "casemodes.h"
+// #include "casemodes.h"
 #include "layermodes.h"
 #include "tap_hold.h"
 #include "swapper.h"
@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SYM] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_PIPE, _______, _______,
+      _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_PIPE, CW_TOGG, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_LBRC, KC_LCBR, KC_LPRN, KC_MINS,     GRV,                      KC_PLUS, OS_CTRL, OS_SHFT,  OS_ALT,  OS_GUI, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -35,11 +35,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_EXT] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, _______, _______, _______, _______, _______,                      _______, _______, KC_UE, KC_OE, _______, _______,
+      _______, _______, _______, _______, _______, _______,                      _______, _______, KC_UE,   KC_OE,   _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_DEL,  OS_GUI,  OS_ALT,  OS_SHFT, OS_CTRL, _______,                      _______, KC_QUES, KC_LBRC, KC_RBRC, KC_AE, _______,
+      KC_DEL,  OS_GUI,  OS_ALT,  OS_SHFT, OS_CTRL, _______,                      _______, KC_QUES, KC_LBRC, KC_RBRC, KC_AE,   _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, _______, OS_RALT, _______, _______, _______,                      _______, _______, KC_LABK, KC_RABK, KC_SS, _______,
+      _______, _______, OS_RALT, _______, _______, _______,                      _______, _______, KC_LABK, KC_RABK, KC_SS,   _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,    _______,   CLEAR,     FUN
                                       //`--------------------------'  `--------------------------'
@@ -51,9 +51,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+---------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_LGUI, KC_LALT, KC_LSFT,  KC_LCTL, _______,                       KC_INS, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, _______,
   //|--------+--------+--------+--------+---------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, _______, ALT_TAB, C(KC_W), CTRL_TAB, _______,                      KC_NUM, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, _______,
+      _______, _______, ALT_TAB, C(KC_W), CTRL_TAB, _______,                      KC_NUM, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  _______,
   //|--------+--------+--------+--------+---------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                           _______, _______, _______,    _______,   CLEAR, _______
+                                           _______, _______, _______,    _______,   _______, _______
                                        //`--------------------------'  `--------------------------'
   ),
 
@@ -149,11 +149,6 @@ void double_tap_space(uint16_t keycode) {
     tap_code16(KC_SPC);
 }
 
-void tap16_repeatable(uint16_t keycode) {
-    tap_code16(keycode);
-    // register_key_to_repeat(keycode);
-}
-
 void triple_tap(uint16_t keycode) {
     tap_code16(keycode);
     tap_code16(keycode);
@@ -166,35 +161,6 @@ void double_parens_left(uint16_t left, uint16_t right) {
     tap_code16(KC_LEFT);
 }
 
-
-bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
-    switch (keycode) {
-        // case REPEAT:
-        // case REV_REP:
-        //     return false;
-        // Keycodes to ignore (don't disable caps word)
-        case KC_A ... KC_Z:
-        case KC_1 ... KC_0:
-        case QU:
-        // case EM_DASH:
-        case KC_MINS:
-        case KC_UNDS:
-        case KC_BSPC:
-        // case REPEAT:
-        // case REV_REP:
-        //     // If mod chording disable the mods
-        //     if (record->event.pressed && (get_mods() != 0)) {
-        //         return true;
-        //     }
-        //     break;
-        default:
-            if (record->event.pressed) {
-                return true;
-            }
-            break;
-    }
-    return false;
-}
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
@@ -234,7 +200,7 @@ void process_oneshot_pre(uint16_t keycode, keyrecord_t *record) {
     update_oneshot_pre(&os_shft_state, KC_LSFT, OS_SHFT, keycode, record);
     update_oneshot_pre(&os_ctrl_state, KC_LCTL, OS_CTRL, keycode, record);
     update_oneshot_pre(&os_alt_state, KC_LALT, OS_ALT, keycode, record);
-    update_oneshot_pre(&os_alt_state, KC_RALT, OS_RALT, keycode, record);
+    // update_oneshot_pre(&os_alt_state, KC_RALT, OS_RALT, keycode, record);
     update_oneshot_pre(&os_gui_state, KC_LGUI, OS_GUI, keycode, record);
 }
 
@@ -242,7 +208,7 @@ void process_oneshot_post(uint16_t keycode, keyrecord_t *record) {
     update_oneshot_post(&os_shft_state, KC_LSFT, OS_SHFT, keycode, record);
     update_oneshot_post(&os_ctrl_state, KC_LCTL, OS_CTRL, keycode, record);
     update_oneshot_post(&os_alt_state, KC_LALT, OS_ALT, keycode, record);
-    update_oneshot_post(&os_alt_state, KC_RALT, OS_RALT, keycode, record);
+    // update_oneshot_post(&os_alt_state, KC_RALT, OS_RALT, keycode, record);
     update_oneshot_post(&os_gui_state, KC_LGUI, OS_GUI, keycode, record);
 }
 
@@ -253,6 +219,7 @@ void process_oneshot_key(uint16_t keycode, keyrecord_t *record) {
 
 bool tap_hold(uint16_t keycode) {
     switch (keycode) {
+        case KC_MINS:
         case KC_DQUO:
         case KC_LABK:
         case KC_RABK:
@@ -284,6 +251,12 @@ void tap_hold_send_tap(uint16_t keycode) {
         case QU:
             SEND_STRING("qu");
             return;
+        case KC_DQUO:
+            tap_undead_key(true, KC_DQUO);
+            return;
+        case KC_QUOT:
+            tap_undead_key(true, KC_QUOT);
+            return;
         // case DBL_DASH:
         //     send_unicode_string("—");
         //     return;
@@ -294,12 +267,12 @@ void tap_hold_send_tap(uint16_t keycode) {
             SEND_STRING("=>");
             return;
         default:
-            tap16_repeatable(keycode);
+            tap_code16(keycode);
     }
 }
 
 void tap_hold_send_hold(uint16_t keycode) {
-    disable_caps_word();
+    // caps_word_off();
 
     switch (keycode) {
         case KC_LABK:
@@ -331,17 +304,19 @@ void tap_hold_send_hold(uint16_t keycode) {
         //     send_unicode_string("–");
         //     return;
         case KC_COMM:
-            tap16_repeatable(KC_SCLN);
+            tap_code16(KC_SCLN);
             return;
         case KC_BSPC:
-            tap16_repeatable(C(keycode));
+            tap_code16(C(keycode));
             return;
         case ARROW:
             SEND_STRING("->");
             return;
+        case KC_MINS:
+            tap_code16(KC_UNDS);
+            return;
         default:
-            tap16_repeatable(S(keycode));
-            // tap16_repeatable(keycode);
+            tap_code16(S(keycode));
     }
 }
 
@@ -440,6 +415,8 @@ bool sw_ctrl_active = false;
 bool is_swapper_ignored_key(uint16_t keycode) {
     switch (keycode) {
         case CLEAR:
+        case KC_LSFT:
+        case KC_RSFT:
         case OS_SHFT:
             return true;
         default:
@@ -447,9 +424,31 @@ bool is_swapper_ignored_key(uint16_t keycode) {
     }
 }
 
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+        case KC_MINS:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_UNDS:
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
+}
 
 bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
     #ifdef CONSOLE_ENABLE
+        if (is_caps_word_on()) {
+            uprintf("Caps Word: %u\n", keycode);
+        }
         if (record->event.pressed) {
             uprintf("0x%04X,%u,%u,%u,%b,0x%02X,0x%02X,%u\n",
                  keycode,
@@ -467,9 +466,6 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
     update_swapper(&sw_win_active, KC_LALT, KC_TAB, ALT_TAB, keycode, record);
     update_swapper(&sw_ctrl_active, KC_LCTL, KC_TAB, CTRL_TAB, keycode, record);
 
-    if (!process_case_modes(keycode, record)) {
-        return false;
-    }
     if (!process_num_word(keycode, record)) {
         return false;
     }
@@ -478,11 +474,6 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-        case CAPSWORD:
-            if (record->event.pressed) {
-                toggle_caps_word();
-            }
-            return false;
         case CLEAR:
             clear_oneshot_mods();
             if (get_oneshot_layer() != 0) {
@@ -526,11 +517,6 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code16(S(KC_G));
             }
             return false;
-        // case REPEAT:
-        //     // Enable fast UI rolls with repeat key
-        //     end_tap_hold();
-        //     update_repeat_key(record);
-        //     return false;
     }
 
     return true;

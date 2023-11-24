@@ -29,7 +29,7 @@ COMB(c_gui_r,   OS_GUI,     KC_H, KC_COMM)
 
 // mixed
 COMB(num,       NUMWORD,    MT_SPC, OS_SHFT)
-COMB(capsword,  CAPSWORD,   KC_R, KC_I)
+COMB(capsword,  CW_TOGG,    KC_R, KC_I)
 
 COMB(c_6,       KC_6,       MT_SPC, KC_A)
 COMB(c_4,       KC_4,       MT_SPC, KC_R)

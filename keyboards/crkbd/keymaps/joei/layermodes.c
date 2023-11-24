@@ -1,10 +1,12 @@
 #include "layermodes.h"
 #include "keycodes.h"
 
-static uint16_t _num_word_timer = 0;
+static uint16_t _num_word_timer   = 0;
 static bool     _num_word_enabled = false;
 
-bool num_word_enabled(void) { return _num_word_enabled; }
+bool num_word_enabled(void) {
+    return _num_word_enabled;
+}
 
 void enable_num_word(void) {
     _num_word_enabled = true;
@@ -52,8 +54,6 @@ bool process_num_word(uint16_t keycode, const keyrecord_t *record) {
         case KC_UNDS:
         case KC_BSPC:
         case KC_X:
-        case REPEAT:
-        case REV_REP:
         case KC_ENT:
             // Don't disable for above keycodes
             break;
