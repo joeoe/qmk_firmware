@@ -220,6 +220,7 @@ void process_oneshot_key(uint16_t keycode, keyrecord_t *record) {
 bool tap_hold(uint16_t keycode) {
     switch (keycode) {
         case KC_MINS:
+        case KC_QUOT:
         case KC_DQUO:
         case KC_LABK:
         case KC_RABK:
@@ -237,8 +238,11 @@ bool tap_hold(uint16_t keycode) {
         case KC_BSPC:
         case KC_COMM:
         case QU:
-        // case DBL_DASH:
         case ARROW:
+        case KC_UE:
+        case KC_OE:
+        case KC_AE:
+        case KC_SS:
         case KC_A ... KC_Z:
             return true;
         default:
@@ -299,10 +303,6 @@ void tap_hold_send_hold(uint16_t keycode) {
         case QU:
             SEND_STRING("Qu");
             return;
-        // case DBL_DASH:
-        //     // shifted/held em_dash = en_dash
-        //     send_unicode_string("–");
-        //     return;
         case KC_COMM:
             tap_code16(KC_SCLN);
             return;
@@ -314,6 +314,11 @@ void tap_hold_send_hold(uint16_t keycode) {
             return;
         case KC_MINS:
             tap_code16(KC_UNDS);
+            return;
+        // Give back dead keys on long press
+        case KC_QUOT:
+        case KC_DQUO:
+            tap_code16(keycode);
             return;
         default:
             tap_code16(S(keycode));
