@@ -24,7 +24,7 @@ CONSOLE_ENABLE = yes
 VPATH += keyboards/gboards/
 
 # SRC += matrix.c
-SRC += oneshot.c
+# SRC += oneshot.c
 SRC += layermodes.c
 # SRC += casemodes.c
 SRC += tap_hold.c

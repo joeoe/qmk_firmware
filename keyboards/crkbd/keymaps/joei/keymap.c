@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 
 #include "keycodes.h"
-#include "oneshot.h"
+// #include "oneshot.h"
 // #include "casemodes.h"
 #include "layermodes.h"
 #include "tap_hold.h"
@@ -161,62 +161,6 @@ void double_parens_left(uint16_t left, uint16_t right) {
     tap_code16(KC_LEFT);
 }
 
-
-bool is_oneshot_cancel_key(uint16_t keycode) {
-    switch (keycode) {
-        case CLEAR:
-            return true;
-        default:
-            return false;
-    }
-}
-
-bool is_oneshot_ignored_key(uint16_t keycode) {
-    switch (keycode) {
-        // case MT_SPC:
-        case SYM:
-        case NAV:
-        case FUN:
-        case EXT:
-        case LT(_MEDIA, KC_DEL):
-        case CLEAR:
-        case OS_CTRL_SHFT:
-        case OS_SHFT:
-        case OS_CTRL:
-        case OS_ALT:
-        case OS_GUI:
-            return true;
-        default:
-            return false;
-    }
-}
-
-oneshot_state os_shft_state = os_up_unqueued;
-oneshot_state os_ctrl_state = os_up_unqueued;
-oneshot_state os_alt_state  = os_up_unqueued;
-oneshot_state os_gui_state  = os_up_unqueued;
-
-void process_oneshot_pre(uint16_t keycode, keyrecord_t *record) {
-    update_oneshot_pre(&os_shft_state, KC_LSFT, OS_SHFT, keycode, record);
-    update_oneshot_pre(&os_ctrl_state, KC_LCTL, OS_CTRL, keycode, record);
-    update_oneshot_pre(&os_alt_state, KC_LALT, OS_ALT, keycode, record);
-    // update_oneshot_pre(&os_alt_state, KC_RALT, OS_RALT, keycode, record);
-    update_oneshot_pre(&os_gui_state, KC_LGUI, OS_GUI, keycode, record);
-}
-
-void process_oneshot_post(uint16_t keycode, keyrecord_t *record) {
-    update_oneshot_post(&os_shft_state, KC_LSFT, OS_SHFT, keycode, record);
-    update_oneshot_post(&os_ctrl_state, KC_LCTL, OS_CTRL, keycode, record);
-    update_oneshot_post(&os_alt_state, KC_LALT, OS_ALT, keycode, record);
-    // update_oneshot_post(&os_alt_state, KC_RALT, OS_RALT, keycode, record);
-    update_oneshot_post(&os_gui_state, KC_LGUI, OS_GUI, keycode, record);
-}
-
-void process_oneshot_key(uint16_t keycode, keyrecord_t *record) {
-    update_oneshot_pre(&os_shft_state, KC_LSFT, OS_SHFT, keycode, record);
-    update_oneshot_post(&os_ctrl_state, KC_LCTL, OS_CTRL, keycode, record);
-}
-
 bool tap_hold(uint16_t keycode) {
     switch (keycode) {
         case KC_MINS:
@@ -261,9 +205,6 @@ void tap_hold_send_tap(uint16_t keycode) {
         case KC_QUOT:
             tap_undead_key(true, KC_QUOT);
             return;
-        // case DBL_DASH:
-        //     send_unicode_string("—");
-        //     return;
         case GRV:
             tap_undead_key(true, KC_GRV);
             return;
@@ -455,14 +396,13 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             uprintf("Caps Word: %u\n", keycode);
         }
         if (record->event.pressed) {
-            uprintf("0x%04X,%u,%u,%u,%b,0x%02X,0x%02X,%u\n",
+            uprintf("0x%04X,%u,%u,%u,%b,0x%02X,%u\n",
                  keycode,
                  record->event.key.row,
                  record->event.key.col,
                  get_highest_layer(layer_state),
                  record->event.pressed,
                  get_mods(),
-                 get_oneshot_mods(),
                  record->tap.count
                  );
         }
@@ -480,10 +420,10 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
         case CLEAR:
-            clear_oneshot_mods();
-            if (get_oneshot_layer() != 0) {
-                clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-            }
+            // clear_oneshot_mods();
+            // if (get_oneshot_layer() != 0) {
+            //     clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+            // }
             layer_move(_BASE);
             return false;
         case CANCEL:
@@ -528,11 +468,11 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    process_oneshot_pre(keycode, record);
+    // process_oneshot_pre(keycode, record);
 
     bool res = _process_record_user(keycode, record);
 
-    process_oneshot_post(keycode, record);
+    // process_oneshot_post(keycode, record);
 
     return res;
 }

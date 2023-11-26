@@ -103,12 +103,12 @@ enum custom_keycodes {
 #define KC_AE RALT(KC_Q)
 #define KC_SS RALT(KC_S)
 
-//  #define OS_SHFT OSM(MOD_LSFT)
-//     #define OS_CTRL OSM(MOD_LCTL)
-//     #define OS_RALT OSM(MOD_RALT)
-//     #define OS_ALT OSM(MOD_LALT)
-//     #define OS_GUI OSM(MOD_LGUI)
-//     #define OS_CTRL_SHFT OSM(MOD_LCTL | MOD_LSFT)
+#define OS_SHFT OSM(MOD_LSFT)
+#define OS_CTRL OSM(MOD_LCTL)
+#define OS_RALT OSM(MOD_RALT)
+#define OS_ALT OSM(MOD_LALT)
+#define OS_GUI OSM(MOD_LGUI)
+#define OS_CTRL_SHFT OSM(MOD_LCTL | MOD_LSFT)
 
 // Colors
 // by role
