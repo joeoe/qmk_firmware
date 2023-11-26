@@ -1,4 +1,5 @@
 EXTRAFLAGS += -flto
+BOOTLOADER = atmel-dfu
 
 LTO_ENABLE = yes
 MOUSEKEY_ENABLE = yes    # Mouse keys
