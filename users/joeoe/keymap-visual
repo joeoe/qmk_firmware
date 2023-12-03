@@ -1,0 +1,50 @@
+     ╭─────────────────────╮                     ╭─────────────────────╮
+ LT5 │ LT4 LT3 LT2 LT1 LT0 │ LTA             RTA │ RT0 RT1 RT2 RT3 RT4 │ RT5
+ LM5 │ LM4 LM3 LM2 LM1 LM0 | LMA             RMA | RM0 RM1 RM2 RM3 RM4 │ RM5
+ LB5 │ LB4 LB3 LB2 LB1 LB0 │ LBA LBB     RBB RBA │ RB0 RB1 RB2 RB3 RB4 │ RB5
+     ╰───────╮ LH2 LH1 LH3 │ LH0 LHA     RHA RH0 │ RH3 RH1 RH2 ╭───────╯
+     LH5 LH4 ╰─────────────╯                     ╰─────────────╯ RH4 RH5
+
+
+      ╭─────────────────────╮                   ╭─────────────────────╮
+ esc  │  X   W   M   G   J  │ L_CFG       L_NUM │  #$  .:  '[  "]   B │ LANG2/henk
+ tab  │  S   C   N   T   K  | (               ) |  ,;   A   E   I   H │ LANG1/mhen
+  Z   │  V   F   L   D  /*  │ [ copy     pste ] │  -+   U   O   Y   P │ Q
+      ╰───────╮ bsp  R  ___ │ &               | │ ___  spc ret ╭──────╯
+    left rght ╰─────────────╯                   ╰──────────────╯ up  dn
+
+
+L_FUN LAYER K-key row (left) and Num row (right)
+         ╭──────────────────────────────────────────╮       ╭──────────────────────────────────────────╮
+ RGB_TOG │ F9       F10     F11     F12     F13     │       │ /       7       8       9       -        │ RGB_MOD
+ RGB_VAI │ C_T(F5)  A_T(F6) G_T(F7) S_T(L8) F14     │       │ *       S_T(1)  G_T(2)  A_T(3)  C_T(+)   │ RGB_HUI
+ RGB_VAD │ F1       F2      F3      F4      INS     │       │ ,       4       5       3       =        │ RGB_HUD
+         ╰────────────────╮ __      __      __      │       │ 0       .       TG(LN)  ╭────────────────╯
+              __      __  ╰─────────────────────────╯       ╰─────────────────────────╯ __       __
+
+
+L_NUM: Navigation (left) Numpad (right) (LN)
+       ╭──────────────────────────────────────────╮       ╭──────────────────────────────────────────╮
+       │ NUM_LK   PGUP    UP      PGDN      TAB   │       │  PSLS      P7      P8      P9      PMNS  │ __
+       │ W_LEFT   LEFT    DOWN    RGHT     W_RGHT │       │  PAST      P4      P5      P6      PPLS  │ __
+       │ UNDO     CUT     COPY    PSTE      SPC   │       │  PCMM      P1      P2      P3      PEQL  │ __
+       ╰────────────────╮  __   G_T(BSP)  C_T(ENT)│       │  P0        PDOT    __   ╭────────────────╯
+            __      __  ╰─────────────────────────╯       ╰─────────────────────────╯ __       __
+
+
+L_NAV: Edit & mods (left) Navigation (right)
+       ╭──────────────────────────────────────────╮       ╭───────────────────────────────────────────────╮
+       │   QUIT     CLOZ    SCAP    SCLP    PSTM  │       │  DOCBEG     HOME    UP      PGUP    PARAPRV   │ KC_NUM
+       │   LCTL     LALT    LGUI    LSFT    FIND  │       │  WORDPRV    LEFT    DOWN    RGHT    WORDNXT   │ __
+       │   UNDO     CUT     COPY    PSTE    FAGN  │       │  DOCEND     END     DOWN    PGDN    PARANXT   │ __
+       ╰──────────────────╮  __   S(MENU)   MENU  │       │  HISTPRV  HISTNXT    __    ╭──────────────────╯
+          HISTPRV HISTNXT ╰───────────────────────╯       ╰────────────────────────────╯ ZOOMRST ZOOMOUT
+
+
+L_CFG Keyboard Configuration (left) and Media Settings (right)
+╭────────────────────────────────────────────────────────────────────╮                  ╭─────────────────────────────────────────────────────────────────────────╮
+│   ___   QK_RBT            CG_SWAP     CG_NORM    EE_CLR                                 LCA(KC_DEL)    SK_KILL     KC_NUM      KC_EJCT     __no__   SK_ZOOMRST  RGB_MOD
+│ RGB_VAI HD_AdaptKeyToggle HD_L_QWERTY HD_L_ALPHA KC_VOLU  KC_BRIU __no__                KC_MPRV        KC_MUTE     KC_MNXT     SK_ZOOMOUT   RGB_SAI
+│ RGB_HUI QK_BOOT           AG_SWAP     AG_NORM    KC_VOLD  KC_BRID RGB_VAD              __no__      __no__     RGB_SAD     __no__    KC_MRWD    KC_MPLY    KC_MFFD     SK_ZOOMIN   RGB_HUD
+╰────────────────────────────────────────────╮  __   TG(L_NUM)   __  │                  │  __   __   __  ╭────────────────────────────────────────────╯
+                   ╰─────────────────────────────────────────────────╯                  ╰────────────────╯ ZOOMRST ZOOMOUT
