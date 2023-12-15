@@ -1,11 +1,14 @@
+#include "casemode.h"
+
+extern uint32_t state_reset_timer;
+
 // bools to keep track of the caps word state
-static bool caps_word_on = false;
-static bool last_press_was_space = false;
+bool caps_word_on         = false;
+bool last_press_was_space = false;
 
 // Enable caps word
 void enable_caps_word(void) {
-
-    caps_word_on = true;
+    caps_word_on         = true;
     last_press_was_space = false;
     if (!host_keyboard_led_state().caps_lock) {
         tap_code(KC_CAPS);
@@ -28,30 +31,51 @@ void disable_caps_word(void) {
 void toggle_caps_word(void) {
     if (caps_word_on) {
         disable_caps_word();
-    }
-    else {
+    } else {
         enable_caps_word();
     }
 }
 
-// Called from process_record_user. assumes caps_word is on
-bool process_caps_word(uint16_t keycode, const keyrecord_t *record) {
-
-    // Filter out the actual keycode from MT and LT keys.
-    // This isn't working right. need to allow a layer to happen.
-/*    switch (keycode) {
-        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
- #ifdef TAP_DANCE_ENABLE
-         case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
- #endif
-            if (record->tap.count == 0) // if not tapped yet…
-                return true; // do that first
-            keycode = keycode & 0xFF; // process the base key
+// overrideable function to determine whether the case mode should stop
+__attribute__((weak)) bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
+    switch (keycode) {
+        // Keycodes to ignore (don't disable caps word)
+        case KC_A ... KC_Z:
+        case KC_1 ... KC_0:
+        case KC_MINS:
+        case KC_UNDS:
+        case KC_BSPC:
+            // If mod chording disable the mods
+            if (record->event.pressed && (get_mods() != 0)) {
+                return true;
+            }
+            break;
         default:
+            if (record->event.pressed) {
+                return true;
+            }
             break;
     }
-*/
+    return false;
+}
+
+// Called from process_record_user. assumes caps_word is on
+bool process_caps_word(uint16_t keycode, const keyrecord_t *record) {
+    // Filter out the actual keycode from MT and LT keys.
+    // This isn't working right. need to allow a layer to happen.
+    /*    switch (keycode) {
+            case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+     #ifdef TAP_DANCE_ENABLE
+             case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
+     #endif
+                if (record->tap.count == 0) // if not tapped yet…
+                    return true; // do that first
+                keycode = keycode & 0xFF; // process the base key
+            default:
+                break;
+        }
+    */
     if (record->event.pressed) {
         keycode = keycode & QK_BASIC_MAX; // process the base key
         // check if the case modes have been terminated
@@ -73,18 +97,23 @@ bool process_caps_word(uint16_t keycode, const keyrecord_t *record) {
                     disable_caps_word();
                     return true; // let QMK handle space normally
                 } else {
-                        register_code16(KC_UNDS);
+                    register_code16(KC_UNDS);
                     last_press_was_space = true;
                     return false; // We handled it
                 }
-                break; // compiler takes this out if necessary?
-            case KC_A ... KC_Z: // only works for ASCII. fix this.
+                break;                  // compiler takes this out if necessary?
+            case KC_A ... KC_Z:         // only works for ASCII. fix this.
                 register_code(KC_LSFT); // for platforms that do CAPSLK differently
                 register_code(keycode); // like iOS, etc.
                 unregister_code(KC_LSFT);
                 last_press_was_space = false;
-               return false; // We handled it
-            }
+                return false; // We handled it
+        }
+        // check if the case modes have been terminated
+        if (terminate_case_modes(keycode, record)) {
+            disable_caps_word();
+        }
+
         disable_caps_word();
         return true;
     } else {
@@ -95,6 +124,6 @@ bool process_caps_word(uint16_t keycode, const keyrecord_t *record) {
                     return false; // We handled it
                 }
         }
-    } // end if event.pressed
+    }            // end if event.pressed
     return true; // keep processing
 }

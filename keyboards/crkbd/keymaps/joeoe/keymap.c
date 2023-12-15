@@ -33,6 +33,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LS_LB5, LS_LB4, LS_LB3, LS_LB2, LS_LB1, LS_LB0,        LS_RB0, LS_RB1, LS_RB2, LS_RB3, LS_RB4,LS_RB5,
                             LS_LH2, LS_LH1, LS_LH3,        LS_RH3, LS_RH1, LS_RH2),
 
+  [L_EXT] = LAYOUT_split_3x6_3(
+    LE_LT5, LE_LT4, LE_LT3, LE_LT2, LE_LT1, LE_LT0,        LE_RT0, LE_RT1, LE_RT2, LE_RT3, LE_RT4,LE_RT5,
+    LE_LM5, LE_LM4, LE_LM3, LE_LM2, LE_LM1, LE_LM0,        LE_RM0, LE_RM1, LE_RM2, LE_RM3, LE_RM4,LE_RM5,
+    LE_LB5, LE_LB4, LE_LB3, LE_LB2, LE_LB1, LE_LB0,        LE_RB0, LE_RB1, LE_RB2, LE_RB3, LE_RB4,LE_RB5,
+                            LE_LH2, LE_LH1, LE_LH3,        LE_RH3, LE_RH1, LE_RH2),
+
     [L_FUN] = LAYOUT_split_3x6_3(
     LF_LT5, LF_LT4, LF_LT3, LF_LT2, LF_LT1, LF_LT0,        LF_RT0, LF_RT1, LF_RT2, LF_RT3, LF_RT4,LF_RT5,
     LF_LM5, LF_LM4, LF_LM3, LF_LM2, LF_LM1, LF_LM0,        LF_RM0, LF_RM1, LF_RM2, LF_RM3, LF_RM4,LF_RM5,

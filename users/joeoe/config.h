@@ -4,7 +4,7 @@
 #define NO_ACTION_FUNCTION
 
 #undef TAPPING_TERM
-#define TAPPING_TERM 170
+#define TAPPING_TERM 200
 #define TAPPING_FORCE_HOLD
 #define TAPPING_FORCE_HOLD_PER_KEY
 
@@ -18,31 +18,31 @@
 #define TAP_HOLD_CAPS_DELAY 10
 #define PERMISSIVE_HOLD
 
-//#define IGNORE_MOD_TAP_INTERRUPT
+// #define IGNORE_MOD_TAP_INTERRUPT
 
 #ifdef COMBO_ENABLE
-    #ifdef COMBO_COUNT
-        #undef COMBO_COUNT
-    #endif
+#    ifdef COMBO_COUNT
+#        undef COMBO_COUNT
+#    endif
 
-#define COMBO_TERM_PER_COMBO
-#define COMBO_MUST_TAP_PER_COMBO
-    #define COMBO_ALLOW_ACTION_KEYS
-    #define COMBO_STRICT_TIMER
-    #define EXTRA_SHORT_COMBOS
-    #ifdef COMBO_TERM
-        #undef COMBO_TERM
-    #endif
+#    define COMBO_TERM_PER_COMBO
+#    define COMBO_MUST_TAP_PER_COMBO
+#    define COMBO_ALLOW_ACTION_KEYS
+#    define COMBO_STRICT_TIMER
+#    define EXTRA_SHORT_COMBOS
+#    ifdef COMBO_TERM
+#        undef COMBO_TERM
+#    endif
 // these COMBO_TERM have dilicate interactions with ADAPTIVE_TERM below.
-    #define COMBO_TERM (TAPPING_TERM/4) // time to get all combo keys down
-    #define COMBO_HOLD (TAPPING_TERM) // time to hold to trigger delayed combo
+#    define COMBO_TERM (TAPPING_TERM / 4) // time to get all combo keys down
+#    define COMBO_HOLD (TAPPING_TERM)     // time to hold to trigger delayed combo
 #endif
 
 #ifdef COMBO_HOLD
-    #undef ADAPTIVE_TERM
-    #define ADAPTIVE_TERM COMBO_HOLD  // use COMBO_HOLD time as a standard threshold (same recation time)
+#    undef ADAPTIVE_TERM
+#    define ADAPTIVE_TERM COMBO_HOLD // use COMBO_HOLD time as a standard threshold (same recation time)
 #else
-    #define ADAPTIVE_TERM (TAPPING_TERM/5) // rolling threshold
+#    define ADAPTIVE_TERM (TAPPING_TERM / 5) // rolling threshold
 #endif
 
 // how long to hold before a time-depentant behavior begins
@@ -54,3 +54,5 @@
 #define ADAPTIVE_TRAILER KC_3
 
 #define UNICODE_KEY_WINC KC_RIGHT_ALT
+
+#define KEYLOGGER_ENABLE
