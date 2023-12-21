@@ -1,7 +1,9 @@
 #include QMK_KEYBOARD_H
 
 #include "joeoe.h"
-#include "combo_def.c"
+#ifdef COMBO_ENABLE
+#    include "combos.c"
+#endif
 
 #define ____ KC_TRNS
 #define _no_ KC_NO
@@ -14,6 +16,7 @@
 // ╰───────╮ LH2 LH1 LH3 │ │ RH3 RH1 RH2 ╭───────╯
 //         ╰─────────────╯ ╰─────────────╯
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_QWERTY] = LAYOUT_split_3x6_3(
     KC_TAB,   KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,         KC_Y,           KC_U,    KC_I,    KC_O,      KC_P,   KC_QUOT,
@@ -33,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LS_LB5, LS_LB4, LS_LB3, LS_LB2, LS_LB1, LS_LB0,        LS_RB0, LS_RB1, LS_RB2, LS_RB3, LS_RB4,LS_RB5,
                             LS_LH2, LS_LH1, LS_LH3,        LS_RH3, LS_RH1, LS_RH2),
 
-  [L_EXT] = LAYOUT_split_3x6_3(
+    [L_EXT] = LAYOUT_split_3x6_3(
     LE_LT5, LE_LT4, LE_LT3, LE_LT2, LE_LT1, LE_LT0,        LE_RT0, LE_RT1, LE_RT2, LE_RT3, LE_RT4,LE_RT5,
     LE_LM5, LE_LM4, LE_LM3, LE_LM2, LE_LM1, LE_LM0,        LE_RM0, LE_RM1, LE_RM2, LE_RM3, LE_RM4,LE_RM5,
     LE_LB5, LE_LB4, LE_LB3, LE_LB2, LE_LB1, LE_LB0,        LE_RB0, LE_RB1, LE_RB2, LE_RB3, LE_RB4,LE_RB5,
@@ -70,3 +73,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // KC_Y,   KC_B,   KC_F,   KC_M,   KC_V,                       KC_MINS, KC_U, KC_O, KC_H, KC_DQUO,
     //                 LT(L_CFG,KC_MUTE), HD_LH2, HD_LH1, HD_RH1, HD_RH2, LT(L_CFG,KC_MPLY)),
 
+// clang-format on

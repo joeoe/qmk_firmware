@@ -2,6 +2,7 @@
 #include "casemode.h"
 #include "layermodes.h"
 #include "swapper.h"
+#include "linger.h"
 
 /**
  * @brief Keycode handler for keymaps
@@ -21,8 +22,8 @@ extern user_config_t user_config;
 extern uint16_t      prior_keycode;
 extern uint16_t      prior_keydown;
 extern bool          caps_word_on;
+extern uint8_t       saved_mods;
 
-extern uint16_t linger_key;
 /**
  * @brief Main user keycode handler
  *
@@ -36,21 +37,27 @@ extern uint16_t linger_key;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef KEYLOGGER_ENABLE
-    uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %1d, time: %5u, int: %1d, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
-    uprintf("keycode: 0x%04X, keycode&QK_BASIC_MAX: 0x%04X \n", keycode, keycode & QK_BASIC_MAX);
+    uprintf("kc: 0x%04X, kc_basic: 0x%04X, col: %2u, row: %2u, pressed: %1d, time: %5u\n", keycode, keycode & QK_BASIC_MAX, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time);
 #endif
+
+    // print_user_config();
 
     bool return_state = true;
 
+#ifdef SWAPPER_ENABLE
     update_swapper(&sw_win_active, KC_LALT, KC_TAB, ALT_TAB, keycode, record);
     update_swapper(&sw_ctrl_active, KC_LCTL, KC_TAB, CTRL_TAB, keycode, record);
+#endif
 
+#ifdef NUMWORD_ENABLE
     if (!process_num_word(keycode, record)) {
         return false;
     }
-    // if (!process_tap_hold(keycode, record)) {
-    //     return false;
-    // }
+#endif
+
+    if (!process_tap_hold(keycode, record)) {
+        return false;
+    }
 
 #ifdef ADAPTIVE_ENABLE
     // Should we handle an adaptive key?  (Semkey may send Adaptive?)
@@ -69,9 +76,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
-#ifdef TAP_DANCE_ENABLE
-        case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
-#endif
             if (!record->tap.count)  // if not tapped yet…
                 return true;         // let QMK do that first
             keycode &= QK_BASIC_MAX; // mods & taps have been handled.
@@ -87,13 +91,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CUSTOM_UNICODE_ENABLE
           && process_record_unicode(keycode, record)
 #endif
-          && true)) {
+              )) {
         return false;
     }
 
     // only process for SHIFT/ALT & no CTRL or GUI mods
-    // if (saved_mods & MOD_MASK_CG)  // CTRL or GUI/CMD?
-    //     return true; // do default if CTRL or GUI/CMD are down
+    if (saved_mods & MOD_MASK_CG) // CTRL or GUI/CMD?
+        return true;              // do default if CTRL or GUI/CMD are down
 
     if (record->event.pressed) {
         switch (keycode) {
@@ -118,9 +122,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case ARROW:
                 SEND_STRING("->");
                 break;
+#ifdef NUMWORD_ENABLE
             case NUMWORD:
                 enable_num_word();
                 break;
+#endif
+#ifdef CASEMODE_ENABLE
+            case CAPSWORD:
+                enable_caps_word();
+                break;
+#endif
             case SAVE_VIM:
                 tap_code16(KC_ESC);
                 tap_code16(KC_COLN);
@@ -136,6 +147,47 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code(KC_V);
                 break;
 
+            case K_LBRC:
+                tap_code(KC_LBRC);
+                linger(KC_LBRC);
+                break;
+            case C_QU:
+                tap_code(KC_Q);
+                unregister_mods(MOD_MASK_SHIFT);
+                tap_code(KC_U);
+                break;
+            case C_GH:
+                tap_code(KC_G);
+                unregister_mods(MOD_MASK_SHIFT);
+                tap_code(KC_H);
+                linger(C_GH);
+                break;
+            case C_CH:
+                tap_code(KC_C);
+                unregister_mods(MOD_MASK_SHIFT);
+                tap_code(KC_H);
+                linger(C_CH);
+                break;
+            case C_WH:
+                tap_code(KC_W);
+                unregister_mods(MOD_MASK_SHIFT);
+                tap_code(KC_H);
+                linger(C_WH);
+                break;
+            case C_PH:
+                tap_code(KC_P);
+                unregister_mods(MOD_MASK_SHIFT);
+                tap_code(KC_H);
+                linger(C_PH);
+                break;
+            case C_SCH:
+                tap_code(KC_S);
+                unregister_mods(MOD_MASK_SHIFT);
+                tap_code(KC_C);
+                tap_code(KC_H);
+                linger(C_SCH);
+                break;
+
         } // switch (keycode)
 #ifdef ADAPTIVE_ENABLE
         prior_keydown = timer_read(); // (re)start prior_key timing
@@ -143,15 +195,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
     } else {               // key up event
         switch (keycode) { // clean up on keyup.
-            case KC_J:     //
-            case KC_V:     //
-            case KC_Z:     //
-            case KC_Q:     // for linger Qu (ironically, need to handle this direclty w/o the macros.)
-                unregister_code16(keycode);
-                linger_key = 0;       // make sure nothing lingers
-                                      //                unregister_linger_key();
-                return_state = false; // stop processing this record.
+            case K_LBRC:
+            case C_GH:
+            case C_CH:
+            case C_WH:
+            case C_PH:
+            case C_SCH:
+                unlinger(keycode);
                 break;
+
         } // end switch (keycode)
     }     // end key up event
 

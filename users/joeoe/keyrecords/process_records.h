@@ -7,6 +7,7 @@ enum userspace_custom_keycodes {
     K_CIRC,
     K_QUOT,
     K_DQUO,
+    K_LBRC,
 
     // Symbols
     ARROW,
@@ -40,7 +41,18 @@ enum userspace_custom_keycodes {
     LAYER_CYCLE,
 
     // Common bigrams
-    QU
+    QU,
+
+    C_TH,
+    C_CH,
+    C_WH,
+    C_SH,
+    C_PH,
+    C_GH,
+    C_SCH,
+    C_QU,
+    C_COPY,
+    C_PSTE
 };
 
 #define xxxxxxx KC_NO

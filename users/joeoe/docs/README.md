@@ -8,11 +8,11 @@ Currently this is a Frankensteinian mixture of
 
 
 # Hands Down Vibranium-vv
- ╭─────────────────────────╮    ╭──────────────────────────╮
- │ esc  X   W   M   G   J  │    │  #   .   '   "   B  SHFT │
- │ tab  S   C   N   T   K  │    │  ,   A   E   I   H  ENT  │
- │  Z   V   F   L   D   /  │    │  -   U   O   Y   P   Q   │
- ╰───────────╮ EXT  R  bsp │    │ NUM spc SYM ╭────────────╯
+ ╭─────────────────────────╮    ╭─────────────────────────╮
+ │  Q   X   W   M   G   J  │    │  #   .   '   "   B   ;  │
+ │ tab  S   C   N   T   K  │    │  ,   A   E   I   H  ENT │
+ │  Z   V   F   L   D   /  │    │  -   U   O   Y   P   Q  │
+ ╰───────────╮ EXT  R  bsp │    │ NUM spc SYM ╭───────────╯
              ╰─────────────╯    ╰─────────────╯       
 
 # combo

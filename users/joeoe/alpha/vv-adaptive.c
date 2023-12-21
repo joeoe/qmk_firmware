@@ -38,13 +38,34 @@ bool process_adaptive_key(uint16_t *calling_keycode, const keyrecord_t *record) 
         unregister_mods(MOD_MASK_SHIFT); // CAPS_WORD/LOCK won't be affected.
     }                                    // may want more granular control than this…
 
-    switch (keycode) { // process ignoring multi-function keys
+    // custom keycodes & QK_BASIC_MAX do not result in their desired keycodes
+    // i.e. K_DQUO & QK_BASIC_MAX !== KC_DQUO
+    // TODO find better solution
+    switch (keycode) {
+        case K_DQUO:
+            switch (prior_keycode) {
+                case KC_B:
+                    tap_code(KC_Y);
+                    return false;
+                case KC_DOT:
+                    send_string("edu");
+                    return false;
+            }
+            break;
+        case K_QUOT:
+            switch (prior_keycode) {
+                case KC_DOT:
+                    send_string("com");
+                    return false;
+                case KC_QUOT:
+                case KC_B:
+                    tap_code(KC_O);
+                    return false;
+            }
+            break;
+    }
 
-            // switch (keycode & QK_BASIC_MAX) { // process ignoring multi-function keys
-
-            /*
-            // Left hand adaptives (most are single-handed neighbor fingers, bc speed, dexterity limits)
-            */
+    switch (keycode & QK_BASIC_MAX) { // process ignoring multi-function keys
         case KC_G:
             switch (prior_keycode) {
                 case KC_W:
@@ -216,7 +237,6 @@ bool process_adaptive_key(uint16_t *calling_keycode, const keyrecord_t *record) 
             }
             break;
         case KC_DQUO:
-        case K_DQUO:
             switch (prior_keycode) {
                 case KC_B:                //
                     tap_code(KC_Y);       // BJ = BY (eliminate scissor on ring finger BY is 6x BJ)
@@ -229,7 +249,6 @@ bool process_adaptive_key(uint16_t *calling_keycode, const keyrecord_t *record) 
             }
             break;
         case KC_QUOT:
-        case K_QUOT:
             switch (prior_keycode) {
                 case KC_DOT:
                     send_string("com");
@@ -260,214 +279,6 @@ bool process_adaptive_key(uint16_t *calling_keycode, const keyrecord_t *record) 
                     break;
             }
             break;
-
-#ifdef THUMB_REPEATER
-        case HD_REPEATER_A: // Make a repeat key of the secondary thumb key on both sides
-        case HD_REPEATER_B: // for most common double letters (inherently SFBs)
-            switch (prior_keycode) {
-                case KC_A ... KC_SLASH:      // Any alpha can be repeated?
-                                             /* double-letter frequencies from Peter Norvig's data <https://norvig.com/mayzner.html>
-                                                             case KC_L: // 0.577%
-                                                             case KC_S: // 0.405%
-                                                             case KC_E: // 0.378%
-                                                             case KC_O: // 0.210%
-                                                             case KC_T: // 0.171%
-                                                             case KC_F: // 0.146%
-                                                             case KC_P: // 0.137%
-                                                             case KC_R: // 0.121%
-                                                             case KC_M: // 0.096%
-                                                             case KC_C: // 0.083%
-                                                             case KC_N: // 0.073%
-                                                             case KC_D: // 0.043%
-                                                             case KC_G: // 0.025%
-                                                             case KC_I: // 0.023%
-                                                             case KC_B: // 0.011%
-                                                             case KC_A: // 0.003%
-                                                             case KC_Z: // 0.003%
-                                                             case KC_X: // 0.003%
-                                                             case KC_U: // 0.001%
-                                                             case KC_H: // 0.001%
-                                             */
-                    tap_code(prior_keycode); // eliminate SFB on double
-                    return_state = false;    // done.
-            }
-            break;
-#endif
-#ifdef ADAPTIVE_TRAILER
-            // Using Adaptives for macros (like a flexible LeaderKey)
-        case ADAPTIVE_TRAILER:
-            switch (prior_keycode) {
-#    ifdef adaptAMINS
-                case KC_A:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptAMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptBMINS
-                case KC_B:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptBMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptCMINS
-                case KC_C:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptCMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptDMINS
-                case KC_D:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptDMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptEMINS
-                case KC_E:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptEMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptFMINS
-                case KC_F:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptFMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptGMINS
-                case KC_G:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptGMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptHMINS
-                case KC_H:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptHMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptIMINS
-                case KC_I:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptIMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptJMINS
-                case KC_J:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptJMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptKMINS
-                case KC_K:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptKMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptLMINS
-                case KC_L:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptLMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptMMINS
-                case KC_M:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptMMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptNMINS
-                case KC_N:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptNMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptOMINS
-                case KC_O:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptOMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptPMINS
-                case KC_P:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptPMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptRMINS
-                case KC_R:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptRMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptSMINS
-                case KC_S:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptSMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptTMINS
-                case KC_T:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptTMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptUMINS
-                case KC_U:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptUMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptVMINS
-                case KC_V:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptVMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptWMINS
-                case KC_W:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptWMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptYMINS
-                case KC_Y:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptYMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-#    ifdef adaptYMINS
-                case KC_Y:                   //
-                    tap_code(KC_BSPC);       // may have been lowercase
-                    send_string(adaptYMINS); //
-                    return_state = false;    // done.
-                    break;
-#    endif
-            }
-            break;
-#endif // ADAPTIVE_TRAILER
     }
     if (return_state) { // no adaptive processed, cancel state and pass it on.
         set_mods(saved_mods);

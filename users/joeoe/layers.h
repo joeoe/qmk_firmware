@@ -8,15 +8,15 @@
 #define LS_LT2 KC_HASH
 #define LS_LT1 KC_DLR
 #define LS_LT0 KC_PERC
-#define LS_RT0 KC_CIRC
+#define LS_RT0 K_CIRC
 #define LS_RT1 KC_AMPR
 #define LS_RT2 KC_ASTR
 #define LS_RT3 KC_PIPE
-#define LS_RT4 CW_TOGG
+#define LS_RT4 _______
 #define LS_RT5 _______
 
 #define LS_LM5 _______
-#define LS_LM4 KC_LBRC
+#define LS_LM4 K_LBRC
 #define LS_LM3 KC_LCBR
 #define LS_LM2 KC_LPRN
 #define LS_LM1 KC_MINS
@@ -32,7 +32,7 @@
 #define LS_LB4 KC_RBRC
 #define LS_LB3 KC_RCBR
 #define LS_LB2 KC_RPRN
-#define LS_LB1 KC_DQUO
+#define LS_LB1 _______
 #define LS_LB0 ARROW
 #define LS_LBA _______
 #define LS_LBB _______
@@ -41,7 +41,7 @@
 #define LS_RB0 _______
 #define LS_RB1 KC_COLN
 #define LS_RB2 KC_EQL
-#define LS_RB3 KC_TILD
+#define LS_RB3 K_TILD
 #define LS_RB4 KC_BSLS
 #define LS_RB5 _______
 
@@ -83,7 +83,7 @@
 #define LE_LM0 _______
 #define LE_RM0 K_TILD
 #define LE_RM1 KC_QUES
-#define LE_RM2 KC_LBRC
+#define LE_RM2 K_LBRC
 #define LE_RM3 KC_RBRC
 #define LE_RM4 KC_AE
 #define LE_RM5 _______

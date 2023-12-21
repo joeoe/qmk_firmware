@@ -56,6 +56,8 @@
 #define HD_SLSH KC_SLSH
 #define HD_DOT KC_DOT
 #define HD_COMM KC_COMM
+#define HD_SCLN KC_SCLN
+#define HD_ESC KC_ESC
 // #define HD_COMM LT(L_FUN, KC_COMM)
 
 // Now let's place these HD keycodes on the keymap
@@ -83,7 +85,7 @@
 // and accessible combos (defined below)
 //
 
-#define HD_LT5 KC_ESC
+#define HD_LT5 HD_Q
 #define HD_LT4 HD_X
 #define HD_LT3 HD_W
 #define HD_LT2 HD_M
@@ -96,9 +98,9 @@
 #define HD_RT2 HD_QUOT
 #define HD_RT3 HD_DQUO
 #define HD_RT4 HD_B
-#define HD_RT5 OS_SHFT
+#define HD_RT5 HD_SCLN
 
-#define HD_LM5 KC_TAB
+#define HD_LM5 HD_ESC
 #define HD_LM4 HD_S
 #define HD_LM3 HD_C
 #define HD_LM2 HD_N
@@ -145,7 +147,8 @@
 #define HD_RH1 HD_SPC
 #define HD_RH2 OSL(L_SYM)
 // #define HD_RH2 HD_ENT
-#define HD_RH3 TG(L_NUM)
+#define HD_RH3 LT(L_NUM, KC_DEL)
+// #define HD_RH3 TG(L_NUM)
 #define HD_RH4 LT(L_FUN, KC_MPLY)
 #define HD_RH5 KC_DN
 

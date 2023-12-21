@@ -1,4 +1,17 @@
 #include "joeoe.h"
+#include "linger.h"
+
+// No global matrix scan code, so just run keymap's matrix scan function
+__attribute__((weak)) void matrix_scan_keymap(void) {}
+void                       matrix_scan_user(void) {
+#ifdef LINGER_ENABLE
+    linger_matrix_scan();
+#endif
+
+    tap_hold_matrix_scan();
+
+    matrix_scan_keymap();
+}
 
 __attribute__((weak)) void keyboard_pre_init_keymap(void) {}
 void                       keyboard_pre_init_user(void) {
@@ -20,6 +33,8 @@ void                       keyboard_post_init_user(void) {
 #ifdef CUSTOM_UNICODE_ENABLE
     keyboard_post_init_unicode();
 #endif
+
+    // debug_matrix = true;
 
     keyboard_post_init_keymap();
 }
@@ -53,97 +68,6 @@ void                       suspend_power_down_user(void) {
 __attribute__((weak)) void suspend_wakeup_init_keymap(void) {}
 void                       suspend_wakeup_init_user(void) {
     suspend_wakeup_init_keymap();
-}
-
-extern uint8_t  saved_mods;
-extern uint8_t  combo_on;
-extern uint16_t linger_key;
-extern uint32_t linger_timer;
-extern uint32_t state_reset_timer;
-
-// No global matrix scan code, so just run keymap's matrix scan function
-__attribute__((weak)) void matrix_scan_keymap(void) {}
-void                       matrix_scan_user(void) {
-#ifdef COMBO_ENABLE
-    // Is a combo_action being held for delayed action/linger combos)?
-    if (combo_on) {
-        matrix_scan_user_process_combo();
-    }
-#endif
-
-    if (state_reset_timer) { // is there an active state to check on (caps_word)?
-
-        // if (caps_word_on) { // caps_word mode on, (no mods) check if it needs to be cleared
-        //     if (timer_elapsed(state_reset_timer) > STATE_RESET_TIME * 3) {// caps time over?
-        //         disable_caps_word(); // turn off all open states
-        //         state_reset_timer = 0;
-        //     }
-        // }
-
-        // prior register_linger_key(kc) needs to be handled here
-        //
-        if (linger_key && user_config.adaptive_keys) {       // A linger key is being held down
-            if (timer_elapsed(linger_timer) > LINGER_TIME) { // linger triggered
-                saved_mods = get_mods();
-                clear_mods();
-                unregister_mods(MOD_MASK_SHIFT); // second char isn't shifted. CAPSLOCK UNAFFECTED.
-                switch (linger_key) {            // only one linger_key at a time, obviously
-                    case KC_Q:                   // already "Q" has been sent; if lingered, add "u"
-                        tap_code(KC_U);
-                        break;
-                    case KC_LPRN:
-                        tap_code16(KC_RPRN);
-                        tap_code16(KC_LEFT);
-                        break;
-                    case KC_LBRC:
-                        tap_code16(KC_RBRC);
-                        tap_code16(KC_LEFT);
-                        break;
-                    case KC_LCBR:
-                        tap_code16(KC_RCBR);
-                        tap_code16(KC_LEFT);
-                        break;
-                    case KC_LT:
-                        tap_code16(KC_GT);
-                        tap_code16(KC_LEFT);
-                        break;
-
-                        //                     case KC_QUOT: // ‘|’ single paired quotes
-                        //                         tap_code16(KC_BSPC);
-                        //                         tap_SemKey(SK_SQUL);
-                        //                         tap_SemKey(SK_SQUR);
-                        //                         tap_code16(KC_LEFT);
-                        //                         break;
-                        //                     case KC_DQUO: // “|” double paired quotes
-                        //                         tap_code16(KC_BSPC);
-                        //                         clear_keyboard();  // QMK doesn't let go of shift here?
-                        //                         tap_SemKey(SK_SDQL); // “
-                        //                         tap_SemKey(SK_SDQR); // ”
-                        //                         tap_code(KC_LEFT);
-                        //                         break;
-                        //                     case SK_FDQL: //  « | » double French quote
-                        //                         tap_SemKey(SK_FDQR);
-                        //                         goto pushspaceshere;
-                        //                     case SK_FSQL: //  ‹ | › single French quote
-                        //                         tap_SemKey(SK_FSQR);
-                        // pushspaceshere:
-                        //                         tap_code(KC_LEFT); // break up 2 dble spc
-                        //                         tap_code16(KC_SPACE); // to thwart "smart" EOS.
-                        //                         tap_code(KC_LEFT);
-                        //                         tap_code16(KC_SPACE);
-                        //                         //unregister_SemKey(linger_key);
-                        //                         break;
-
-                    default:
-                        break;
-                }
-                linger_timer = state_reset_timer = 0; // stop lingering
-                set_mods(saved_mods);                 // Restore mods
-            }
-        }
-    }
-
-    matrix_scan_keymap();
 }
 
 // on layer change, no matter where the change was initiated
@@ -255,10 +179,4 @@ void                       matrix_slave_scan_user(void) {
 // #endif
 //
 //     housekeeping_task_keymap();
-// }
-
-// __attribute__((weak))
-// void process_combo_event_keymap(uint16_t combo_index, bool pressed) {}
-// void process_combo_event(uint16_t combo_index, bool pressed) {
-//     process_combo_event_keymap(combo_index, pressed);
 // }

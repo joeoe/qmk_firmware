@@ -1,6 +1,6 @@
 #pragma once
 
-#include "quantum.h"
+#include QMK_KEYBOARD_H
 
 void          keyboard_post_init_keymap(void);
 void          matrix_init_secret(void);

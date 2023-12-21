@@ -1,5 +1,4 @@
 #include "joeoe.h"
-#include "keyrecords/process_records.h"
 
 // Globals
 user_config_t user_config;
@@ -10,17 +9,10 @@ uint16_t      key_trap       = 0; // the actual keycode registered (need to unre
 uint16_t prior_keycode = KC_NO;
 uint16_t prior_keydown = 0; // timer of keydown for adaptive threshhold.
 #endif
-
-uint16_t linger_key        = 0; // keycode for linger actions (ex. "Qu")
-uint32_t linger_timer      = 0; // time to hold a key before something else happens.
-uint32_t state_reset_timer = 0; // time to leave a state active before shutting it down automatically.
-
-uint8_t combo_on        = 0;     // for combo actions to hold before triggering
-bool    combo_triggered = false; // for one-shot-combo-actions
-
+#ifdef SWAPPER_ENABLE
 bool sw_win_active  = false;
 bool sw_ctrl_active = false;
-
+#endif
 #ifdef ADAPTIVE_ENABLE
 #    include HD_adaptive_code // this is HD variation dependent
 #endif
@@ -136,4 +128,82 @@ bool is_swapper_ignored_key(uint16_t keycode) {
         default:
             return false;
     }
+}
+
+void print_user_config() {
+#ifdef KEYLOGGER_ENABLE
+    uprintf("user_config: adaptive_keys=%s \n", user_config.adaptive_keys ? "true" : "false");
+#endif
+}
+
+bool tap_hold(uint16_t keycode) {
+    switch (keycode) {
+        case C_TH:
+        case C_SH:
+        case C_PSTE:
+        case C_COPY:
+            return true;
+        default:
+            return false;
+    }
+}
+
+void tap_hold_send_tap(uint16_t keycode) {
+    switch (keycode) {
+        case C_TH:
+            tap_code(KC_T);
+            unregister_mods(MOD_MASK_SHIFT);
+            tap_code(KC_H);
+            return;
+        case C_SH:
+            tap_code(KC_S);
+            unregister_mods(MOD_MASK_SHIFT);
+            tap_code(KC_H);
+            return;
+        case C_PSTE:
+            tap_code(KC_PASTE);
+            return;
+        case C_COPY:
+            tap_code(KC_COPY);
+            break;
+
+        default:
+            tap_code16(keycode);
+    }
+}
+
+void tap_hold_send_hold(uint16_t keycode) {
+    switch (keycode) {
+        case C_TH: // TION = by far most common 4-gram, (then THAT/THER/WITH/MENT)
+            tap_code(KC_T);
+            unregister_mods(MOD_MASK_SHIFT);
+            send_string("ion");
+            break;
+        case C_SH:
+            tap_code(KC_S);
+            unregister_mods(MOD_MASK_SHIFT);
+            send_string("ion");
+            return;
+        case C_PSTE:
+            tap_code16(S(KC_PASTE));
+            return;
+        case C_COPY:
+            tap_code(KC_CUT);
+            break;
+
+        default:
+            tap_code16(keycode);
+    }
+}
+
+void linger(uint16_t keycode) {
+#ifdef LINGER_ENABLE
+    register_linger_key(keycode);
+#endif
+}
+
+void unlinger(uint16_t keycode) {
+#ifdef LINGER_ENABLE
+    unregister_linger_key(keycode);
+#endif
 }
