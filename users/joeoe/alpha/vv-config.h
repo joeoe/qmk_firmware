@@ -48,8 +48,9 @@
 // #define HD_SPC  LT(L_NAV,KC_SPC)
 #define HD_SPC KC_SPC
 // #define HD_BSPC KC_BSPC
+#define HD_BSPC LT(L_NMPAD, KC_BSPC)
 // #define HD_BSPC LT(L_FUN, KC_BSPC)
-#define HD_BSPC MT(MOD_MEH, KC_BSPC)
+// #define HD_BSPC MT(MOD_MEH, KC_BSPC)
 #define HD_ENT LT(L_NAV, KC_ENT)
 #define HD_QUOT K_QUOT
 #define HD_DQUO K_DQUO
@@ -147,7 +148,7 @@
 #define HD_RH1 HD_SPC
 #define HD_RH2 OSL(L_SYM)
 // #define HD_RH2 HD_ENT
-#define HD_RH3 LT(L_NUM, KC_DEL)
+#define HD_RH3 LT(L_MEDIA, KC_DEL)
 // #define HD_RH3 TG(L_NUM)
 #define HD_RH4 LT(L_FUN, KC_MPLY)
 #define HD_RH5 KC_DN

@@ -23,16 +23,17 @@ const uint16_t PROGMEM capsword_combo[] = {HD_LM1, HD_LM2, HD_RM1, HD_RM2, COMBO
 
 // const uint16_t PROGMEM ndash_combo[] = {HD_RB0, HD_RB1, COMBO_END}; // – n dash
 // const uint16_t PROGMEM mdash_combo[] = {HD_RB0, HD_RB2, COMBO_END}; // — m dash
-const uint16_t PROGMEM tild_combo[]  = {HD_RB1, HD_RB4, COMBO_END}; // ~
-const uint16_t PROGMEM unds_combo[]  = {HD_RB1, HD_RB3, COMBO_END}; // _
-const uint16_t PROGMEM equal_combo[] = {HD_RB2, HD_RB3, COMBO_END}; // =
-const uint16_t PROGMEM scln_combo[]  = {HD_RM0, HD_RM1, COMBO_END}; // ;
-const uint16_t PROGMEM coln_combo[]  = {HD_RM1, HD_RM2, COMBO_END}; // :
-const uint16_t PROGMEM exlm_combo[]  = {HD_RT1, HD_RT2, COMBO_END}; // !
-const uint16_t PROGMEM ques_combo[]  = {HD_RT2, HD_RT3, COMBO_END}; // ?
-const uint16_t PROGMEM dolr_combo[]  = {HD_RT2, HD_RT4, COMBO_END}; // $
-const uint16_t PROGMEM tic_combo[]   = {HD_RT3, HD_RT4, COMBO_END}; // ` tic (not dead key grave)
-const uint16_t PROGMEM at_combo[]    = {HD_RT0, HD_RT1, COMBO_END}; // @
+const uint16_t PROGMEM tild_combo[]      = {HD_RB1, HD_RB4, COMBO_END};         // ~
+const uint16_t PROGMEM unds_combo[]      = {HD_RB1, HD_RB3, COMBO_END};         // _
+const uint16_t PROGMEM equal_combo[]     = {HD_RB2, HD_RB3, COMBO_END};         // =
+const uint16_t PROGMEM scln_combo[]      = {HD_RM0, HD_RM1, COMBO_END};         // ;
+const uint16_t PROGMEM coln_combo[]      = {HD_RM2, HD_RM3, COMBO_END};         // :
+const uint16_t PROGMEM coln_shft_combo[] = {HD_RM1, HD_RM2, HD_RM3, COMBO_END}; // :
+const uint16_t PROGMEM exlm_combo[]      = {HD_RT1, HD_RT2, COMBO_END};         // !
+const uint16_t PROGMEM ques_combo[]      = {HD_RT2, HD_RT3, COMBO_END};         // ?
+const uint16_t PROGMEM dolr_combo[]      = {HD_RT2, HD_RT4, COMBO_END};         // $
+const uint16_t PROGMEM tic_combo[]       = {HD_RT3, HD_RT4, COMBO_END};         // ` tic (not dead key grave)
+const uint16_t PROGMEM at_combo[]        = {HD_RT0, HD_RT1, COMBO_END};         // @
 // const uint16_t PROGMEM Hgrv_combo[]  = {HD_RM2, HD_RM3, COMBO_END}; // ` grave (dead key)
 // const uint16_t PROGMEM Hcirc_combo[] = {HD_RM1, HD_RM3, COMBO_END}; // ˆ circumflex (dead key)
 const uint16_t PROGMEM num_combo[] = {HD_LH1, HD_RH1, COMBO_END};
@@ -61,17 +62,19 @@ const uint16_t PROGMEM gh_combo[]  = {HD_Gh_keys, COMBO_END};  // TYPE "gh"
 const uint16_t PROGMEM sch_combo[] = {HD_Sch_keys, COMBO_END}; // TYPE "Sch"
 
 combo_t key_combos[] = {
-    COMBO(scln_combo, KC_SCLN),    // ;
-    COMBO(coln_combo, S(KC_SCLN)), // :
-    COMBO(unds_combo, S(KC_MINS)), // _
     COMBO(tild_combo, KC_TILD),    // ~
-    COMBO(exlm_combo, KC_EXLM),    // !
-    COMBO(ques_combo, KC_QUES),    // ?
-    COMBO(dolr_combo, KC_DLR),     // $
-    COMBO(tic_combo, K_GRV),       // `
-    COMBO(at_combo, KC_AT),        // @
-    COMBO(tab_combo, KC_TAB),      // tab
-    COMBO(stab_combo, S(KC_TAB)),  // shift-tab
+    COMBO(unds_combo, S(KC_MINS)), // _
+    COMBO(equal_combo, KC_EQUAL),
+    COMBO(scln_combo, KC_SCLN),      // ;
+    COMBO(coln_combo, S(KC_SCLN)),   // :
+    COMBO(coln_shft_combo, C_LNSFT), // : osm(s)
+    COMBO(exlm_combo, KC_EXLM),      // !
+    COMBO(ques_combo, KC_QUES),      // ?
+    COMBO(dolr_combo, KC_DLR),       // $
+    COMBO(tic_combo, K_GRV),         // `
+    COMBO(at_combo, KC_AT),          // @
+    COMBO(tab_combo, KC_TAB),        // tab
+    COMBO(stab_combo, S(KC_TAB)),    // shift-tab
 
     COMBO(qu_combo, C_QU),   // qu
     COMBO(L1_combo, HD_L1),  // z

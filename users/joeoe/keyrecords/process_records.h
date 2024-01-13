@@ -52,7 +52,8 @@ enum userspace_custom_keycodes {
     C_SCH,
     C_QU,
     C_COPY,
-    C_PSTE
+    C_PSTE,
+    C_LNSFT
 };
 
 #define xxxxxxx KC_NO

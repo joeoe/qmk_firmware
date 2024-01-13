@@ -50,8 +50,8 @@
 // how long to leave a state active before resetting like APPMENU or SHIFTWORD
 #define STATE_RESET_TIME LINGER_TIME * 3
 
-#define ADAPTIVE_ENABLE
-#define ADAPTIVE_TRAILER KC_3
+// #define ADAPTIVE_ENABLE
+// #define ADAPTIVE_TRAILER KC_3
 
 #define UNICODE_KEY_WINC KC_RIGHT_ALT
 

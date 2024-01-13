@@ -37,7 +37,7 @@ extern uint8_t       saved_mods;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef KEYLOGGER_ENABLE
-    uprintf("kc: 0x%04X, kc_basic: 0x%04X, col: %2u, row: %2u, pressed: %1d, time: %5u\n", keycode, keycode & QK_BASIC_MAX, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time);
+    uprintf("kc: 0x%04X, col: %2u, row: %2u, pressed: %1d, time: %5u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time);
 #endif
 
     // print_user_config();
@@ -64,7 +64,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed        // keyup = not rolling = no adaptive -> return.
         && user_config.adaptive_keys // AdaptiveKeys is on
     ) {
-        if (!process_adaptive_key(&keycode, record)) {
+        if (!process_adaptive_key(keycode, record)) {
             prior_keydown = timer_read(); // (re)start prior_key timing
             prior_keycode = keycode;      // this keycode is stripped of mods+taps
             return false;                 // took care of that key
@@ -118,6 +118,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 break;
             case K_DQUO:
                 tap_undead_key(KC_DQUO);
+                break;
+            case C_LNSFT:
+                tap_code16(S(KC_SCLN));
+                set_oneshot_mods(MOD_BIT(KC_LSFT));
                 break;
             case ARROW:
                 SEND_STRING("->");

@@ -18,14 +18,16 @@
 
 // enum my_layers for layout layers
 enum my_layers {
-    L_QWERTY, // 0 - QWERTY compatibility layer
-    L_HD,     // 1 - Hands Down Alpha layer
-    L_SYM,    // 2 - symbols, punctuation, off-map alphas
-    L_EXT,    // 3 - extra symbols
-    L_FUN,    // 4 - function & number rows
-    L_NUM,    // 5 - numpad (right); navpad (left)
-    L_NAV,    // 6 - nav pad (right); meta keys (left)
-    L_CFG     // 7 - Media/Consumer controls; Keyboard settings
+    L_QWERTY, // QWERTY compatibility layer
+    L_HD,     // Hands Down Alpha layer
+    L_SYM,    // Symbols, punctuation, off-map alphas
+    L_EXT,    // Extra symbols
+    L_NAV,    // Arrow keys and special keys
+    L_NMPAD,  // Numpad
+    L_MEDIA,  // Media keys
+    L_CFG,    // Config
+    L_FUN,    // F-keys
+    L_NUM,    // Numbers
 };
 
 void tap_undead_key(uint16_t keycode);

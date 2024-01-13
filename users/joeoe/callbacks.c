@@ -15,7 +15,7 @@ void                       matrix_scan_user(void) {
 
 __attribute__((weak)) void keyboard_pre_init_keymap(void) {}
 void                       keyboard_pre_init_user(void) {
-    eeconfig_read_user();
+    user_config.raw = eeconfig_read_user();
     // if (!user_config.check) {
     //     eeconfig_init_user();
     // }

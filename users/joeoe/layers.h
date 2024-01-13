@@ -49,7 +49,7 @@
 #define LS_LH4 _______
 #define LS_LH3 _______
 #define LS_LH2 FUN
-#define LS_LH1 _______
+#define LS_LH1 CLEAR
 #define LS_LH0 _______
 #define LS_LHA _______
 #define LS_RHA _______
@@ -109,7 +109,7 @@
 #define LE_LH4 _______
 #define LE_LH3 _______
 #define LE_LH2 _______
-#define LE_LH1 _______
+#define LE_LH1 CLEAR
 #define LE_LH0 _______
 #define LE_LHA _______
 #define LE_RHA _______
@@ -124,7 +124,7 @@
 
 #define LV_LT5 _______
 #define LV_LT4 _______
-#define LV_LT3 _______
+#define LV_LT3 C(KC_W)
 #define LV_LT2 _______
 #define LV_LT1 _______
 #define LV_LT0 _______
@@ -136,10 +136,10 @@
 #define LV_RT5 _______
 
 #define LV_LM5 _______
-#define LV_LM4 KC_LGUI
+#define LV_LM4 KC_LCTL
 #define LV_LM3 KC_LALT
-#define LV_LM2 KC_LSFT
-#define LV_LM1 KC_LCTL
+#define LV_LM2 KC_LGUI
+#define LV_LM1 KC_LSFT
 #define LV_LM0 _______
 #define LV_RM0 KC_INS
 #define LV_RM1 KC_LEFT
@@ -151,7 +151,7 @@
 #define LV_LB5 _______
 #define LV_LB4 _______
 #define LV_LB3 ALT_TAB
-#define LV_LB2 C(KC_W)
+#define LV_LB2 S(CTRL_TAB)
 #define LV_LB1 CTRL_TAB
 #define LV_LB0 _______
 #define LV_LBA _______
@@ -179,6 +179,66 @@
 #define LV_RH3 _______
 #define LV_RH4 _______
 #define LV_RH5 _______
+
+// L_NAV
+
+#define LP_LT5 _______
+#define LP_LT4 _______
+#define LP_LT3 _______
+#define LP_LT2 _______
+#define LP_LT1 _______
+#define LP_LT0 _______
+#define LP_RT0 _______
+#define LP_RT1 KC_7
+#define LP_RT2 KC_8
+#define LP_RT3 KC_9
+#define LP_RT4 _______
+#define LP_RT5 _______
+
+#define LP_LM5 _______
+#define LP_LM4 KC_LCTL
+#define LP_LM3 KC_LALT
+#define LP_LM2 KC_LGUI
+#define LP_LM1 KC_LSFT
+#define LP_LM0 _______
+#define LP_RM0 _______
+#define LP_RM1 KC_1
+#define LP_RM2 KC_2
+#define LP_RM3 KC_3
+#define LP_RM4 KC_0
+#define LP_RM5 _______
+
+#define LP_LB5 _______
+#define LP_LB4 _______
+#define LP_LB3 _______
+#define LP_LB2 _______
+#define LP_LB1 _______
+#define LP_LB0 _______
+#define LP_LBA _______
+#define LP_LBB _______
+#define LP_RBB _______
+#define LP_RBA _______
+#define LP_RB0 _______
+#define LP_RB1 KC_4
+#define LP_RB2 KC_5
+#define LP_RB3 KC_6
+#define LP_RB4 _______
+#define LP_RB5 _______
+
+#define LP_LH5 _______
+#define LP_LH4 _______
+#define LP_LH3 _______
+#define LP_LH2 _______
+#define LP_LH1 CLEAR
+#define LP_LH0 _______
+#define LP_LHA _______
+#define LP_RHA _______
+#define LP_RH0 _______
+#define LP_RH1 _______
+#define LP_RH2 _______
+#define LP_RH3 _______
+#define LP_RH4 _______
+#define LP_RH5 _______
 
 // L_NUM
 
@@ -229,7 +289,7 @@
 #define LN_LH4 _______
 #define LN_LH3 _______
 #define LN_LH2 _______
-#define LN_LH1 _______
+#define LN_LH1 CLEAR
 #define LN_LH0 _______
 #define LN_LHA _______
 #define LN_RHA _______
@@ -289,7 +349,7 @@
 #define LF_LH4 _______
 #define LF_LH3 _______
 #define LF_LH2 _______
-#define LF_LH1 _______
+#define LF_LH1 CANCEL
 #define LF_LH0 _______
 #define LF_LHA _______
 #define LF_RHA _______
@@ -349,7 +409,7 @@
 #define LM_LH4 _______
 #define LM_LH3 _______
 #define LM_LH2 _______
-#define LM_LH1 _______
+#define LM_LH1 CLEAR
 #define LM_LH0 _______
 #define LM_LHA _______
 #define LM_RHA _______
@@ -408,7 +468,7 @@
 #define LC_LH4 _______
 #define LC_LH3 _______
 #define LC_LH2 _______
-#define LC_LH1 _______
+#define LC_LH1 CLEAR
 #define LC_LH0 _______
 #define LC_LHA _______
 #define LC_RHA _______
