@@ -7,7 +7,7 @@ LTO_ENABLE = yes
 
 EXTRAKEY_ENABLE = yes
 
-LEADER_ENABLE = no
+LEADER_ENABLE = yes
 MOUSEKEY_ENABLE = no
 REPEAT_KEY_ENABLE = no
 CAPS_WORD_ENABLE = no
@@ -20,6 +20,12 @@ AUTO_SHIFT_ENABLE = no
 # Debug
 COMMAND_ENABLE = yes
 CONSOLE_ENABLE = yes
+
+ifneq ($(strip $(NO_SECRETS)), yes)
+    ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
+        SRC += secrets.c
+    endif
+endif
 
 SWAPPER_ENABLE ?= yes
 ifeq ($(strip $(SWAPPER_ENABLE)), yes)

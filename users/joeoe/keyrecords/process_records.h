@@ -40,6 +40,12 @@ enum userspace_custom_keycodes {
     // Default layer cycle
     LAYER_CYCLE,
 
+    KC_SECRET_1,
+    KC_SECRET_2,
+    KC_SECRET_3,
+    KC_SECRET_4,
+    KC_SECRET_5,
+
     // Common bigrams
     QU,
 

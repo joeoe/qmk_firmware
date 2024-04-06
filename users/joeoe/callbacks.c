@@ -180,3 +180,34 @@ void                       matrix_slave_scan_user(void) {
 //
 //     housekeeping_task_keymap();
 // }
+
+#if (__has_include("secrets.h") && !defined(NO_SECRETS))
+#    include "secrets.h"
+#endif
+
+void leader_start_user(void) {
+    // Do something when the leader key is pressed
+}
+
+void leader_end_user(void) {
+    if (leader_sequence_one_key(KC_F)) {
+        SEND_STRING("QMK is awesome.");
+    }
+#if (__has_include("secrets.h") && !defined(NO_SECRETS))
+    else if (leader_sequence_two_keys(KC_M, KC_M)) {
+        send_string(secrets[0]); // default mail
+    } else if (leader_sequence_two_keys(KC_M, KC_W)) {
+        send_string(secrets[1]); // wide mail
+    } else if (leader_sequence_two_keys(KC_M, KC_G)) {
+        send_string(secrets[2]); // google mail
+    } else if (leader_sequence_two_keys(KC_M, KC_C)) {
+        send_string(secrets[3]); // fresh mail
+    } else if (leader_sequence_two_keys(KC_M, KC_S)) {
+        send_string(secrets[6]); // consumer mail
+    } else if (leader_sequence_two_keys(KC_M, KC_R)) {
+        send_string(secrets[5]); // normal rat mail
+    } else if (leader_sequence_two_keys(KC_F, KC_N)) {
+        send_string(secrets[4]); // fon
+    }
+#endif
+}
