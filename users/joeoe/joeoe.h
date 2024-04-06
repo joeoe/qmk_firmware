@@ -28,6 +28,7 @@ enum my_layers {
     L_CFG,    // Config
     L_FUN,    // F-keys
     L_NUM,    // Numbers
+    L_GAME,
 };
 
 void tap_undead_key(uint16_t keycode);
@@ -52,6 +53,7 @@ typedef union {
     uint32_t raw;
     struct {
         bool adaptive_keys; // Adaptive Keys On? (and advanced combos)
+        bool game_mode;
     };
 } user_config_t;
 

@@ -78,6 +78,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LC_LB5, LC_LB4, LC_LB3, LC_LB2, LC_LB1, LC_LB0,        LC_RB0, LC_RB1, LC_RB2, LC_RB3, LC_RB4,LC_RB5,
                             LC_LH2, LC_LH1, LC_LH3,        LC_RH3, LC_RH1, LC_RH2),
 
+    [L_GAME] = LAYOUT_split_3x6_3(
+    LG_LT5, LG_LT4, LG_LT3, LG_LT2, LG_LT1, LG_LT0,        LG_RT0, LG_RT1, LG_RT2, LG_RT3, LG_RT4,LG_RT5,
+    LG_LM5, LG_LM4, LG_LM3, LG_LM2, LG_LM1, LG_LM0,        LG_RM0, LG_RM1, LG_RM2, LG_RM3, LG_RM4,LG_RM5,
+    LG_LB5, LG_LB4, LG_LB3, LG_LB2, LG_LB1, LG_LB0,        LG_RB0, LG_RB1, LG_RB2, LG_RB3, LG_RB4,LG_RB5,
+                            LG_LH2, LG_LH1, LG_LH3,        LG_RH3, LG_RH1, LG_RH2),
+
 };
     // [L_QWERTY] = LAYOUT_split_3x6_3( // Actually MITHRIL
     // KC_W,   KC_P,   KC_G,   KC_D,   KC_J,                       KC_HASH, KC_DOT, KC_SLSH, KC_X, KC_QUOT,

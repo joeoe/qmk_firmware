@@ -116,7 +116,7 @@
 #define LE_RH0 _______
 #define LE_RH1 CLEAR
 #define LE_RH2 FUN
-#define LE_RH3 _______
+#define LE_RH3 TO(L_GAME)
 #define LE_RH4 _______
 #define LE_RH5 _______
 
@@ -477,3 +477,119 @@
 #define LC_RH2 _______
 #define LC_RH3 _______
 #define LC_RH4 _______
+
+// L_GAME
+
+// TODO: WASD / QWERTY setup for usual games
+#define LG_LT5 XXXXXXX
+#define LG_LT4 XXXXXXX
+#define LG_LT3 XXXXXXX
+#define LG_LT2 KC_UP
+#define LG_LT1 XXXXXXX
+#define LG_LT0 XXXXXXX
+#define LG_RT0 XXXXXXX
+#define LG_RT1 KG_L2
+#define LG_RT2 KG_L3
+#define LG_RT3 KG_R3
+#define LG_RT4 KG_SELECT
+#define LG_RT5 KG_SELECT
+
+#define LG_LM5 _______
+#define LG_LM4 XXXXXXX
+#define LG_LM3 KC_LEFT
+#define LG_LM2 KC_DOWN
+#define LG_LM1 KC_RIGHT
+#define LG_LM0 XXXXXXX
+#define LG_RM0 XXXXXXX
+#define LG_RM1 KG_X
+#define LG_RM2 KG_Y
+#define LG_RM3 KG_B
+#define LG_RM4 KG_R2
+#define LG_RM5 KG_START
+
+#define LG_LB5 XXXXXXX
+#define LG_LB4 XXXXXXX
+#define LG_LB3 XXXXXXX
+#define LG_LB2 XXXXXXX
+#define LG_LB1 XXXXXXX
+#define LG_LB0 XXXXXXX
+#define LG_LBA XXXXXXX
+#define LG_LBB XXXXXXX
+#define LG_RBB XXXXXXX
+#define LG_RBA XXXXXXX
+#define LG_RB0 XXXXXXX
+#define LG_RB1 KG_L1
+#define LG_RB2 KG_R1
+#define LG_RB3 KG_XY
+#define LG_RB4 KG_AB
+#define LG_RB5 KG_HOME
+
+#define LG_LH4 _______
+#define LG_LH3 _______
+#define LG_LH2 _______
+#define LG_LH1 KC_UP
+#define LG_LH0 _______
+#define LG_LHA _______
+#define LG_RHA _______
+#define LG_RH0 _______
+#define LG_RH1 KG_A
+#define LG_RH2 KG_SELECT
+#define LG_RH3 CLEAR
+#define LG_RH4 _______
+
+// Fighting Games
+// #define LG_LT5 XXXXXXX
+// #define LG_LT4 XXXXXXX
+// #define LG_LT3 XXXXXXX
+// #define LG_LT2 KC_UP
+// #define LG_LT1 XXXXXXX
+// #define LG_LT0 XXXXXXX
+// #define LG_RT0 XXXXXXX
+// #define LG_RT1 KG_L2
+// #define LG_RT2 KG_L3
+// #define LG_RT3 KG_R3
+// #define LG_RT4 KG_SELECT
+// #define LG_RT5 KG_SELECT
+//
+// #define LG_LM5 _______
+// #define LG_LM4 XXXXXXX
+// #define LG_LM3 KC_LEFT
+// #define LG_LM2 KC_DOWN
+// #define LG_LM1 KC_RIGHT
+// #define LG_LM0 XXXXXXX
+// #define LG_RM0 XXXXXXX
+// #define LG_RM1 KG_X
+// #define LG_RM2 KG_Y
+// #define LG_RM3 KG_B
+// #define LG_RM4 KG_R2
+// #define LG_RM5 KG_START
+//
+// #define LG_LB5 XXXXXXX
+// #define LG_LB4 XXXXXXX
+// #define LG_LB3 XXXXXXX
+// #define LG_LB2 XXXXXXX
+// #define LG_LB1 XXXXXXX
+// #define LG_LB0 XXXXXXX
+// #define LG_LBA XXXXXXX
+// #define LG_LBB XXXXXXX
+// #define LG_RBB XXXXXXX
+// #define LG_RBA XXXXXXX
+// #define LG_RB0 XXXXXXX
+// #define LG_RB1 KG_L1
+// #define LG_RB2 KG_R1
+// #define LG_RB3 KG_XY
+// #define LG_RB4 KG_AB
+// #define LG_RB5 KG_HOME
+//
+// #define LG_LH4 _______
+// #define LG_LH3 _______
+// #define LG_LH2 _______
+// #define LG_LH1 KC_UP
+// #define LG_LH0 _______
+// #define LG_LHA _______
+// #define LG_RHA _______
+// #define LG_RH0 _______
+// #define LG_RH1 KG_A
+// #define LG_RH2 KG_SELECT
+// #define LG_RH3 CLEAR
+// #define LG_RH4 _______

@@ -99,7 +99,7 @@
 #define HD_RT2 HD_QUOT
 #define HD_RT3 HD_DQUO
 #define HD_RT4 HD_B
-#define HD_RT5 HD_SCLN
+#define HD_RT5 QK_LEAD
 
 #define HD_LM5 HD_ESC
 #define HD_LM4 HD_S
@@ -210,3 +210,18 @@
 #    define HD_Sch_keys HD_LM4, HD_LM3, HD_LM2 // TYPE "Sch"
 
 #endif // COMBO_ENABLE
+
+// Tekken I guess
+#define KG_A KC_A
+#define KG_B KC_B
+#define KG_X KC_X
+#define KG_Y KC_Y
+#define KG_L1 KC_L
+#define KG_L2 KC_M
+#define KG_L3 KC_N
+#define KG_R1 KC_R
+#define KG_R2 KC_S
+#define KG_R3 KC_T
+#define KG_START KC_F8
+#define KG_SELECT KC_F9
+#define KG_HOME KC_F10
