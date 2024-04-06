@@ -39,6 +39,10 @@ void linger_matrix_scan() {
                         tap_code16(KC_GT);
                         tap_code16(KC_LEFT);
                         break;
+                    case K_GRV:
+                        tap_undead_key(KC_GRV);
+                        tap_undead_key(KC_GRV);
+                        break;
                     case C_GH:
                         tap_code(KC_T);
                         break;
@@ -50,6 +54,7 @@ void linger_matrix_scan() {
                     case C_SCH:
                         tap_code(KC_O);
                         break;
+
                     default:
                         break;
                 }

@@ -1,6 +1,9 @@
+#include "keyrecords/process_records.h"
+#include "action.h"
 #include "joeoe.h"
 #include "casemode.h"
 #include "layermodes.h"
+#include "quantum.h"
 #include "swapper.h"
 #include "linger.h"
 
@@ -104,9 +107,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case CLEAR:
                 layer_clear();
                 return false;
-            case K_GRV:
-                tap_undead_key(KC_GRAVE);
-                break;
             case K_TILD:
                 tap_undead_key(KC_TILDE);
                 break;
@@ -119,12 +119,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case K_DQUO:
                 tap_undead_key(KC_DQUO);
                 break;
+            case KG_AB:
+                register_code16(KG_A);
+                register_code16(KG_B);
+                unregister_code16(KG_A);
+                unregister_code16(KG_B);
+                break;
+            case KG_XY:
+                register_code16(KG_X);
+                register_code16(KG_Y);
+                unregister_code16(KG_Y);
+                unregister_code16(KG_X);
+                break;
+            case CTRL_STAB:
+                register_code16(KC_LSFT);
+                tap_code16(CTRL_TAB);
+                unregister_code16(KC_LSFT);
+                break;
             case C_LNSFT:
                 tap_code16(S(KC_SCLN));
                 set_oneshot_mods(MOD_BIT(KC_LSFT));
-                break;
-            case ARROW:
-                SEND_STRING("->");
                 break;
 #ifdef NUMWORD_ENABLE
             case NUMWORD:
@@ -150,6 +164,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code16(C(KC_W));
                 tap_code(KC_V);
                 break;
+
+                // case K_GRV:
+                //     tap_undead_key(KC_GRAVE);
+                //     linger(K_GRV);
+                //     break;
 
             case K_LBRC:
                 tap_code(KC_LBRC);
@@ -191,6 +210,45 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code(KC_H);
                 linger(C_SCH);
                 break;
+                // case KG_A:
+                //     tap_code16(KC_A);
+                //     break;
+                // case KG_B:
+                //     tap_code16(KC_B);
+                //     break;
+                // case KG_X:
+                //     tap_code16(KC_X);
+                //     break;
+                // case KG_Y:
+                //     tap_code16(KC_Y);
+                //     break;
+                // case KG_L1:
+                //     tap_code16(KC_L);
+                //     break;
+                // case KG_L2:
+                //     tap_code16(KC_M);
+                //     break;
+                // case KG_L3:
+                //     tap_code16(KC_N);
+                //     break;
+                // case KG_R1:
+                //     tap_code16(KC_R);
+                //     break;
+                // case KG_R2:
+                //     tap_code16(KC_S);
+                //     break;
+                // case KG_R3:
+                //     tap_code16(KC_T);
+                //     break;
+                // case KG_START:
+                //     tap_code16(KC_F8);
+                //     break;
+                // case KG_SELECT:
+                //     tap_code16(KC_F9);
+                //     break;
+                // case KG_HOME:
+                //     tap_code16(KC_F10);
+                //     break;
 
         } // switch (keycode)
 #ifdef ADAPTIVE_ENABLE
@@ -200,6 +258,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     } else {               // key up event
         switch (keycode) { // clean up on keyup.
             case K_LBRC:
+            // case K_GRV:
             case C_GH:
             case C_CH:
             case C_WH:

@@ -1,4 +1,5 @@
 #include "joeoe.h"
+#include "keyrecords/process_records.h"
 
 // Globals
 user_config_t user_config;
@@ -136,12 +137,15 @@ void print_user_config() {
 #endif
 }
 
+// Register keys for tap_hold
 bool tap_hold(uint16_t keycode) {
     switch (keycode) {
         case C_TH:
         case C_SH:
         case C_PSTE:
         case C_COPY:
+        case K_GRV:
+        case ARROW:
             return true;
         default:
             return false;
@@ -165,6 +169,11 @@ void tap_hold_send_tap(uint16_t keycode) {
             return;
         case C_COPY:
             tap_code(KC_COPY);
+        case ARROW:
+            SEND_STRING("->");
+            break;
+        case K_GRV:
+            tap_undead_key(KC_GRAVE);
             break;
 
         default:
@@ -189,6 +198,13 @@ void tap_hold_send_hold(uint16_t keycode) {
             return;
         case C_COPY:
             tap_code(KC_CUT);
+        case ARROW:
+            SEND_STRING("=>");
+            break;
+        case K_GRV:
+            tap_undead_key(KC_GRAVE);
+            tap_undead_key(KC_GRAVE);
+            tap_undead_key(KC_GRAVE);
             break;
 
         default:

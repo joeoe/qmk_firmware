@@ -36,6 +36,7 @@ enum userspace_custom_keycodes {
     // Swapper
     ALT_TAB,
     CTRL_TAB,
+    CTRL_STAB,
 
     // Default layer cycle
     LAYER_CYCLE,
@@ -59,7 +60,27 @@ enum userspace_custom_keycodes {
     C_QU,
     C_COPY,
     C_PSTE,
-    C_LNSFT
+    C_LNSFT,
+    //
+    // KG_A,
+    // KG_B,
+    // KG_X,
+    // KG_Y,
+    // KG_L1,
+    // KG_L2,
+    // KG_L3,
+    // KG_R1,
+    // KG_R2,
+    // KG_R3,
+    // KG_START,
+    // KG_SELECT,
+    // KG_HOME,
+    KG_AB,
+    KG_AX,
+    KG_BY,
+    KG_XY,
+    KG_AY,
+    KG_XB
 };
 
 #define xxxxxxx KC_NO
