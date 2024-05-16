@@ -165,10 +165,11 @@ void tap_hold_send_tap(uint16_t keycode) {
             tap_code(KC_H);
             return;
         case C_PSTE:
-            tap_code(KC_PASTE);
+            tap_code16(C(KC_V));
             return;
         case C_COPY:
-            tap_code(KC_COPY);
+            tap_code16(C(KC_C));
+            break;
         case ARROW:
             SEND_STRING("->");
             break;
@@ -194,10 +195,11 @@ void tap_hold_send_hold(uint16_t keycode) {
             send_string("ion");
             return;
         case C_PSTE:
-            tap_code16(S(KC_PASTE));
+            tap_code16(S(C(KC_V)));
             return;
         case C_COPY:
-            tap_code(KC_CUT);
+            tap_code16(C(KC_X));
+            break;
         case ARROW:
             SEND_STRING("=>");
             break;
