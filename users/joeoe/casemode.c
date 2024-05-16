@@ -74,10 +74,13 @@ bool process_caps_word(uint16_t keycode, const keyrecord_t *record) {
 
     if (caps_word_on) {
         keycode = strip_modtaps(keycode, record);
+
+#ifdef COMBO_ENABLE
         if (keycode > QK_MODS_MAX || KEYCODE_IS_MOD(keycode)) {
             // let special keys and normal modifiers go through
             return true;
         }
+#endif
 
         if (record->event.pressed) {
             // keycode = keycode & QK_BASIC_MAX; // process the base key

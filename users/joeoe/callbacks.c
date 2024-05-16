@@ -39,23 +39,23 @@ void                       keyboard_post_init_user(void) {
     keyboard_post_init_keymap();
 }
 
-__attribute__((weak)) void shutdown_keymap(void) {}
-void                       shutdown_user(void) {
-#ifdef RGBLIGHT_ENABLE
-    rgblight_enable_noeeprom();
-    rgblight_mode_noeeprom(1);
-    rgblight_setrgb(rgblight_get_val(), 0x00, 0x00);
-#endif // RGBLIGHT_ENABLE
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_set_color_all(rgb_matrix_get_val(), 0x00, 0x00);
-    rgb_matrix_update_pwm_buffers();
-#endif // RGB_MATRIX_ENABLE
-#ifdef OLED_ENABLE
-    oled_off();
-#endif
-
-    shutdown_keymap();
-}
+// __attribute__((weak)) void shutdown_keymap(void) {}
+// void                       shutdown_user(void) {
+// #ifdef RGBLIGHT_ENABLE
+//     rgblight_enable_noeeprom();
+//     rgblight_mode_noeeprom(1);
+//     rgblight_setrgb(rgblight_get_val(), 0x00, 0x00);
+// #endif // RGBLIGHT_ENABLE
+// #ifdef RGB_MATRIX_ENABLE
+//     rgb_matrix_set_color_all(rgb_matrix_get_val(), 0x00, 0x00);
+//     rgb_matrix_update_pwm_buffers();
+// #endif // RGB_MATRIX_ENABLE
+// #ifdef OLED_ENABLE
+//     oled_off();
+// #endif
+//
+//     shutdown_keymap();
+// }
 
 __attribute__((weak)) void suspend_power_down_keymap(void) {}
 void                       suspend_power_down_user(void) {
