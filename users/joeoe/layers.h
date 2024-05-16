@@ -125,8 +125,8 @@
 #define LV_LT5 _______
 #define LV_LT4 _______
 #define LV_LT3 C(KC_W)
-#define LV_LT2 _______
-#define LV_LT1 _______
+#define LV_LT2 CTRL_TAB
+#define LV_LT1 C(KC_PGDN)
 #define LV_LT0 _______
 #define LV_RT0 KC_PSCR
 #define LV_RT1 KC_PSTE
@@ -140,7 +140,7 @@
 #define LV_LM3 KC_LALT
 #define LV_LM2 KC_LGUI
 #define LV_LM1 KC_LSFT
-#define LV_LM0 _______
+#define LV_LM0 C(KC_PGUP)
 #define LV_RM0 KC_INS
 #define LV_RM1 KC_LEFT
 #define LV_RM2 KC_DOWN
@@ -151,7 +151,7 @@
 #define LV_LB5 _______
 #define LV_LB4 _______
 #define LV_LB3 ALT_TAB
-#define LV_LB2 S(CTRL_TAB)
+#define LV_LB2 CTRL_TAB
 #define LV_LB1 CTRL_TAB
 #define LV_LB0 _______
 #define LV_LBA _______
@@ -180,7 +180,7 @@
 #define LV_RH4 _______
 #define LV_RH5 _______
 
-// L_NAV
+// L_NMPAD
 
 #define LP_LT5 _______
 #define LP_LT4 _______
@@ -246,9 +246,9 @@
 #define LN_LT4 _______
 #define LN_LT3 _______
 #define LN_LT2 _______
-#define LN_LT1 _______
-#define LN_LT0 _______
-#define LN_RT0 KC_J
+#define LN_LT1 NUM_G
+#define LN_LT0 KC_J
+#define LN_RT0 _______
 #define LN_RT1 _______
 #define LN_RT2 _______
 #define LN_RT3 _______
@@ -260,7 +260,7 @@
 #define LN_LM3 KC_4
 #define LN_LM2 KC_0
 #define LN_LM1 KC_2
-#define LN_LM0 NUM_G
+#define LN_LM0 KC_K
 #define LN_RM0 _______
 #define LN_RM1 KC_3
 #define LN_RM2 KC_1
